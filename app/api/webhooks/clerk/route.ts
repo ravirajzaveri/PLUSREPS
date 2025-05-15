@@ -65,6 +65,7 @@ export async function POST(req: Request) {
         stream: {
           create: {
             title: `${payload.data.username}'s stream`,
+            ingressId: payload.data.id + "-" + Date.now(), // unique enough
           },
         },
       },
