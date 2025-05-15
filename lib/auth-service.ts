@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 export const getSelf = async () => {
   const self = await currentUser();
 
-  if (!self || !self.username) {
+  if (!self) {
     throw new Error("Unauthorized");
   }
 
@@ -23,7 +23,7 @@ export const getSelf = async () => {
 export const getSelfByUsername = async (username: string) => {
   const self = await currentUser();
 
-  if (!self || !self.username) {
+  if (!self) {
     throw new Error("Unauthorized");
   }
 
@@ -35,7 +35,7 @@ export const getSelfByUsername = async (username: string) => {
     throw new Error("User not found");
   }
 
-  if (self.username !== user.username) {
+  if (self.id !== user.externalUserId) {
     throw new Error("Unauthorized");
   }
 
