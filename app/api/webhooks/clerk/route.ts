@@ -53,25 +53,23 @@ export async function POST(req: Request) {
 
   // Get the type
   const eventType = evt.type;
-  
+
   if (eventType === "user.created") {
-    const fallbackUsername = payload.data.username || payload.data.id.slice(-6); // last 6 chars of Clerk ID
-  
+    // Add the user to the database
     await db.user.create({
       data: {
         externalUserId: payload.data.id,
         email: payload.data.email_addresses[0].email_address,
-        username: fallbackUsername,
+        username: payload.data.username,
         imageUrl: payload.data.image_url,
         stream: {
           create: {
-            title: `${fallbackUsername}'s stream`,
+            title: `${payload.data.username}'s stream`,
           },
         },
       },
     });
   }
-
 
   if (eventType === "user.updated") {
     await db.user.update({
