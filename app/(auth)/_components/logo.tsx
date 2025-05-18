@@ -12,7 +12,7 @@ export const Logo = () => {
   return (
     <div className="flex flex-col items-center gap-y-4">
       <div className="rounded-full p-1">
-        <Image src="/twitch.svg" alt="Logo" width={50} height={50} />
+        <Image src="/fitstreamlogo.svg" alt="Logo" width={50} height={50} />
       </div>
       <div className={cn(font.className, "flex flex-col items-center")}>
         <p className="text-xl font-semibold">Twitch</p>
