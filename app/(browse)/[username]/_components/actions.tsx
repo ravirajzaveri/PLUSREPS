@@ -68,11 +68,10 @@ export const Actions = ({ isFollowing, userId }: ActionsProps) => {
           Block
         </Button>
       </div>
-      <div className="flex gap-2">
-        <Button variant="primary">Subscribe Test</Button>
-        <Button variant="secondary">Bits Test</Button>
-
-      </div>
+        <div className="flex gap-2">
+          <SubscribeButton userId={userId} />
+          <BitsButton userId={userId} />
+        </div>
     </div>
   );
 };
