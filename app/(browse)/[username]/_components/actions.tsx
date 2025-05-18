@@ -8,8 +8,9 @@ import { onFollow, onUnfollow } from "@/actions/follow";
 import { Button } from "@/components/ui/button";
 
 // New imports
-import { SubscribeButton } from "@/components/ui/subscribe-button";
-import { BitsButton } from "@/components/ui/bits-button";
+import { SubscribeButton } from "./subscribe-button";
+import { BitsButton } from "./bits-button";
+
 
 interface ActionsProps {
   isFollowing: boolean;
