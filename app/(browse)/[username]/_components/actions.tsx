@@ -19,6 +19,7 @@ interface ActionsProps {
 
 export const Actions = ({ isFollowing, userId }: ActionsProps) => {
   const [isPending, startTransition] = useTransition();
+  console.log("Actions rendered");
 
   const handleFollow = () => {
     startTransition(() => {
@@ -58,7 +59,6 @@ export const Actions = ({ isFollowing, userId }: ActionsProps) => {
     });
   };
 
-console.log("Actions rendered");
 
 return (
   <div className="flex flex-col gap-2">
