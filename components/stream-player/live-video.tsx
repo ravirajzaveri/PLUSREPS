@@ -79,7 +79,7 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
     return (
       <div ref={wrapperRef} className="relative h-full flex items-center justify-center bg-black">
         <video
-          src="https://www.w3schools.com/html/mov_bbb.mp4"
+          src="https://drive.google.com/file/d/1yGq0eHV7I7prLjgMIn7rjn6bRK_vU9WI/view"
           autoPlay
           muted
           preload="auto"
