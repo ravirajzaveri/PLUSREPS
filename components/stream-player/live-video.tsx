@@ -64,6 +64,28 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
         track.publication.track?.attach(videoRef.current);
       }
     });
+  const [showPreRoll, setShowPreRoll] = useState(true);
+  
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowPreRoll(false);
+    }, 10000); // 10s ad
+  
+    return () => clearTimeout(timeout);
+  }, []);
+  if (showPreRoll) {
+    return (
+      <div ref={wrapperRef} className="relative h-full flex items-center justify-center bg-black">
+        <video
+          src="/ads/pre-roll.mp4"
+          autoPlay
+          muted
+          onEnded={() => setShowPreRoll(false)}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    );
+  }
 
   return (
     <div ref={wrapperRef} className="relative h-full flex">
