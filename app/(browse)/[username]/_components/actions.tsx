@@ -7,10 +7,8 @@ import { onBlock, onUnblock } from "@/actions/block";
 import { onFollow, onUnfollow } from "@/actions/follow";
 import { Button } from "@/components/ui/button";
 
-// New imports
 import { SubscribeButton } from "./subscribe-button";
 import { BitsButton } from "./bits-button";
-
 
 interface ActionsProps {
   isFollowing: boolean;
@@ -19,7 +17,8 @@ interface ActionsProps {
 
 export const Actions = ({ isFollowing, userId }: ActionsProps) => {
   const [isPending, startTransition] = useTransition();
-  console.log("Actions rendered");
+
+  console.log("Actions rendered"); // ✅ This is now in the correct place
 
   const handleFollow = () => {
     startTransition(() => {
@@ -59,21 +58,20 @@ export const Actions = ({ isFollowing, userId }: ActionsProps) => {
     });
   };
 
-
-return (
-  <div className="flex flex-col gap-2">
-    <div className="flex gap-2">
-      <Button disabled={isPending} onClick={onClick} variant="primary">
-        {isFollowing ? "Unfollow" : "Follow"}
-      </Button>
-      <Button onClick={handleBlock} disabled={isPending}>
-        Block
-      </Button>
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex gap-2">
+        <Button disabled={isPending} onClick={onClick} variant="primary">
+          {isFollowing ? "Unfollow" : "Follow"}
+        </Button>
+        <Button onClick={handleBlock} disabled={isPending}>
+          Block
+        </Button>
+      </div>
+      <div className="flex gap-2">
+        <SubscribeButton userId={userId} />
+        <BitsButton userId={userId} />
+      </div>
     </div>
-    <div className="flex gap-2">
-      <SubscribeButton userId={userId} />
-      <BitsButton userId={userId} />
-    </div>
-  </div>
-);
-
+  );
+};
