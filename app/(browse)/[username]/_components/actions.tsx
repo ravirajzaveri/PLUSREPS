@@ -7,6 +7,10 @@ import { onBlock, onUnblock } from "@/actions/block";
 import { onFollow, onUnfollow } from "@/actions/follow";
 import { Button } from "@/components/ui/button";
 
+// New imports
+import { SubscribeButton } from "@/components/ui/subscribe-button";
+import { BitsButton } from "@/components/ui/bits-button";
+
 interface ActionsProps {
   isFollowing: boolean;
   userId: string;
@@ -54,13 +58,19 @@ export const Actions = ({ isFollowing, userId }: ActionsProps) => {
   };
 
   return (
-    <>
-      <Button disabled={isPending} onClick={onClick} variant="primary">
-        {isFollowing ? "Unfollow" : "Follow"}
-      </Button>
-      <Button onClick={handleBlock} disabled={isPending}>
-        Block
-      </Button>
-    </>
+    <div className="flex flex-col gap-2">
+      <div className="flex gap-2">
+        <Button disabled={isPending} onClick={onClick} variant="primary">
+          {isFollowing ? "Unfollow" : "Follow"}
+        </Button>
+        <Button onClick={handleBlock} disabled={isPending}>
+          Block
+        </Button>
+      </div>
+      <div className="flex gap-2">
+        <SubscribeButton userId={userId} />
+        <BitsButton userId={userId} />
+      </div>
+    </div>
   );
 };
