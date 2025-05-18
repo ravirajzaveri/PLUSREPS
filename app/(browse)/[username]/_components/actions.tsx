@@ -58,20 +58,22 @@ export const Actions = ({ isFollowing, userId }: ActionsProps) => {
     });
   };
 
-  return (
-    <div className="flex flex-col gap-2">
-      <div className="flex gap-2">
-        <Button disabled={isPending} onClick={onClick} variant="primary">
-          {isFollowing ? "Unfollow" : "Follow"}
-        </Button>
-        <Button onClick={handleBlock} disabled={isPending}>
-          Block
-        </Button>
-      </div>
-        <div className="flex gap-2">
-          <SubscribeButton userId={userId} />
-          <BitsButton userId={userId} />
-        </div>
+console.log("Actions rendered");
+
+return (
+  <div className="flex flex-col gap-2">
+    <div className="flex gap-2">
+      <Button disabled={isPending} onClick={onClick} variant="primary">
+        {isFollowing ? "Unfollow" : "Follow"}
+      </Button>
+      <Button onClick={handleBlock} disabled={isPending}>
+        Block
+      </Button>
     </div>
-  );
-};
+    <div className="flex gap-2">
+      <SubscribeButton userId={userId} />
+      <BitsButton userId={userId} />
+    </div>
+  </div>
+);
+
