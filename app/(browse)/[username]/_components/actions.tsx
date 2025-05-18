@@ -72,8 +72,6 @@ export const Actions = ({ isFollowing, userId }: ActionsProps) => {
         <Button variant="primary">Subscribe Test</Button>
         <Button variant="secondary">Bits Test</Button>
 
-        //<SubscribeButton userId={userId} />
-        //<BitsButton userId={userId} />
       </div>
     </div>
   );
