@@ -77,7 +77,7 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
     return (
       <div ref={wrapperRef} className="relative h-full flex items-center justify-center bg-black">
         <video
-          src="/ads/pre-roll.mp4"
+          src="/ads/SampleDymatizeAd.mp4"
           autoPlay
           muted
           onEnded={() => setShowPreRoll(false)}
