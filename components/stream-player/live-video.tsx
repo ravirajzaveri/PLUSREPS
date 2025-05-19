@@ -39,7 +39,7 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
   };
 
   useEffect(() => {
-    onVolumeChange(0);
+    onVolumeChange(50);
   }, []);
 
   const toggleFullscreen = () => {
@@ -90,6 +90,20 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
       </div>
     );
   }
+  useEffect(() => {
+    if (!showPreRoll && videoRef.current) {
+      videoRef.current.muted = false;
+      const playPromise = videoRef.current.play();
+  
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.warn("Autoplay failed:", err);
+          // You can optionally show an unmute/play overlay here
+        });
+      }
+    }
+  }, [showPreRoll]);
+
   return (
     <div ref={wrapperRef} className="relative h-full flex">
       <video ref={videoRef} width="100%" />
