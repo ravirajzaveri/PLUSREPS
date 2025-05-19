@@ -79,7 +79,7 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
     return (
       <div ref={wrapperRef} className="relative h-full flex items-center justify-center bg-black">
         <video
-          src="https://drive.google.com/file/d/1yGq0eHV7I7prLjgMIn7rjn6bRK_vU9WI/view"
+          src="https://fitstream-vid-ads.b-cdn.net/SampleDymatizeAd(1).mp4"
           autoPlay
           muted
           preload="auto"
