@@ -75,6 +75,20 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
   }, []);
 
   
+  useEffect(() => {
+    if (!showPreRoll && videoRef.current) {
+      videoRef.current.muted = false;
+      const playPromise = videoRef.current.play();
+  
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.warn("Autoplay failed:", err);
+          // You can optionally show an unmute/play overlay here
+        });
+      }
+    }
+  }, [showPreRoll]);
+
   if (showPreRoll) {
     return (
       <div ref={wrapperRef} className="relative h-full flex items-center justify-center bg-black">
@@ -90,19 +104,6 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
       </div>
     );
   }
-  useEffect(() => {
-    if (!showPreRoll && videoRef.current) {
-      videoRef.current.muted = false;
-      const playPromise = videoRef.current.play();
-  
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => {
-          console.warn("Autoplay failed:", err);
-          // You can optionally show an unmute/play overlay here
-        });
-      }
-    }
-  }, [showPreRoll]);
 
   return (
     <div ref={wrapperRef} className="relative h-full flex">
