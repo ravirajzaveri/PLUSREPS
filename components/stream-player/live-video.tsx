@@ -17,11 +17,16 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [volume, setVolume] = useState(0);
+  const [volume, setVolume] = useState(50);
+  const [showPreRoll, setShowPreRoll] = useState(true);
+
+  // ✅ Always call hooks at top level
+  const matchingTracks = useTracks([Track.Source.Camera, Track.Source.Microphone])
+    .filter((track) => track.participant.identity === participant.identity);
 
   const onVolumeChange = (value: number) => {
     setVolume(+value);
-    if (videoRef?.current) {
+    if (videoRef.current) {
       videoRef.current.muted = value === 0;
       videoRef.current.volume = +value * 0.01;
     }
@@ -29,10 +34,8 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
 
   const toggleMute = () => {
     const isMuted = volume === 0;
-
     setVolume(isMuted ? 50 : 0);
-
-    if (videoRef?.current) {
+    if (videoRef.current) {
       videoRef.current.muted = !isMuted;
       videoRef.current.volume = isMuted ? 0.5 : 0;
     }
@@ -45,50 +48,33 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
   const toggleFullscreen = () => {
     if (isFullscreen) {
       document.exitFullscreen();
-    } else if (wrapperRef?.current) {
-      wrapperRef.current.requestFullscreen();
+    } else {
+      wrapperRef.current?.requestFullscreen();
     }
   };
 
   const handleFullscreenChange = () => {
-    const isCurrentlyFullscreen = document.fullscreenElement !== null;
-    setIsFullscreen(isCurrentlyFullscreen);
+    setIsFullscreen(document.fullscreenElement !== null);
   };
 
   useEventListener("fullscreenchange", handleFullscreenChange, wrapperRef);
 
-  useTracks([Track.Source.Camera, Track.Source.Microphone])
-    .filter((track) => track.participant.identity === participant.identity)
-    .forEach((track) => {
-      if (videoRef.current) {
-        track.publication.track?.attach(videoRef.current);
-      }
-    });
-  const [showPreRoll, setShowPreRoll] = useState(true);
-  
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowPreRoll(false);
-    }, 10000); // 10s ad
-  
-    return () => clearTimeout(timeout);
-  }, []);
-
-  
   useEffect(() => {
     if (!showPreRoll && videoRef.current) {
-      videoRef.current.muted = false;
+      videoRef.current.srcObject = null;
+      matchingTracks.forEach((track) => {
+        track.publication.track?.attach(videoRef.current!);
+      });
       const playPromise = videoRef.current.play();
-  
       if (playPromise !== undefined) {
         playPromise.catch((err) => {
-          console.warn("Autoplay failed:", err);
-          // You can optionally show an unmute/play overlay here
+          console.warn("Autoplay after ad failed:", err);
         });
       }
     }
-  }, [showPreRoll]);
+  }, [showPreRoll, matchingTracks]);
 
+  // 🎥 Pre-roll ad
   if (showPreRoll) {
     return (
       <div ref={wrapperRef} className="relative h-full flex items-center justify-center bg-black">
@@ -105,25 +91,16 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
     );
   }
 
+  // 📡 Live stream player
   return (
     <div ref={wrapperRef} className="relative h-full flex">
       <video ref={videoRef} width="100%" />
       <div className="absolute top-0 h-full w-full opacity-0 hover:opacity-100 hover:transition-all">
         <div className="absolute bottom-0 flex h-14 w-full items-center justify-between bg-gradient-to-r from-neutral-900 px-4">
-          <VolumeControl
-            onChange={onVolumeChange}
-            value={volume}
-            onToggle={toggleMute}
-          />
-          <FullscreenControl
-            isFullscreen={isFullscreen}
-            onToggle={toggleFullscreen}
-          />
+          <VolumeControl onChange={onVolumeChange} value={volume} onToggle={toggleMute} />
+          <FullscreenControl isFullscreen={isFullscreen} onToggle={toggleFullscreen} />
         </div>
       </div>
     </div>
   );
 };
-
-
-
