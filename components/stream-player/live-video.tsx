@@ -74,22 +74,34 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
     }
   }, [showPreRoll, matchingTracks]);
 
-  // 🎥 Pre-roll ad
-  if (showPreRoll) {
-    return (
-      <div ref={wrapperRef} className="relative h-full flex items-center justify-center bg-black">
-        <video
-          src="https://fitstream-vid-ads.b-cdn.net/SampleDymatizeAd(1).mp4"
-          autoPlay
-          muted
-          preload="auto"
-          playsInline
-          onEnded={() => setShowPreRoll(false)}
-          className="w-full h-full object-cover"
-        />
-      </div>
-    );
-  }
+if (showPreRoll) {
+  return (
+    <div
+      ref={wrapperRef}
+      className="relative h-full flex items-center justify-center bg-black"
+    >
+      <video
+        src="https://fitstream-vid-ads.b-cdn.net/SampleDymatizeAd(1).mp4"
+        autoPlay
+        controls
+        playsInline
+        preload="auto"
+        className="w-full h-full object-cover"
+        onEnded={() => setShowPreRoll(false)}
+      />
+      {/* Advertiser link overlay */}
+      <a
+        href="https://dymatize.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute bottom-6 right-6 z-10 bg-white/90 text-black px-4 py-2 rounded-md text-sm font-semibold hover:bg-white"
+      >
+        Visit Advertiser
+      </a>
+    </div>
+  );
+}
+
 
   // 📡 Live stream player
   return (
