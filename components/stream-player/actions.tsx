@@ -1,5 +1,8 @@
 "use client";
 
+import { SubscribeButton } from "@/app/(browse)/[username]/_components/subscribe-button";
+import { BitsButton } from "@/app/(browse)/[username]/_components/bits-button";
+
 import { toast } from "sonner";
 import { Heart } from "lucide-react";
 import { useTransition } from "react";
@@ -10,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { onFollow, onUnfollow } from "@/actions/follow";
+
 
 interface ActionsProps {
   hostIdentity: string;
@@ -61,18 +65,25 @@ export const Actions = ({
   };
 
   return (
-    <Button
-      disabled={isPending || isHost}
-      onClick={toggleFollow}
-      variant="primary"
-      size="sm"
-      className="w-full lg:w-auto"
-    >
-      <Heart
-        className={cn("h-4 w-4 mr-2", isFollowing ? "fill-white" : "fill-none")}
-      />
-      {isFollowing ? "Unfollow" : "Follow"}
-    </Button>
+    <div className="flex flex-col gap-2 w-full lg:w-auto">
+      <Button
+        disabled={isPending || isHost}
+        onClick={toggleFollow}
+        variant="primary"
+        size="sm"
+        className="w-full lg:w-auto"
+      >
+        <Heart
+          className={cn("h-4 w-4 mr-2", isFollowing ? "fill-white" : "fill-none")}
+        />
+        {isFollowing ? "Unfollow" : "Follow"}
+      </Button>
+  
+      <div className="flex gap-2 mt-2">
+        <SubscribeButton userId={hostIdentity} />
+        <BitsButton userId={hostIdentity} />
+      </div>
+    </div>
   );
 };
 
