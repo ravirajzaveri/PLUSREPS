@@ -12,7 +12,7 @@ export const Navbar = () => {
 
       {/* Simple Legal link */}
       <Link
-        href="/legal/page"
+        href="/legal"
         className="text-sm text-white hover:underline mr-4"
       >
         Legal & Help
