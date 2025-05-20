@@ -10,6 +10,7 @@ export default authMiddleware({
     "/api/uploadthing",
     "/:username",
     "/search",
+    "/legal(.*)", // ← allow all legal pages
   ],
 });
 
