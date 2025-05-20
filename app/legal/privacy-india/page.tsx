@@ -65,7 +65,7 @@ export default function PrivacyIndiaPage() {
       </ul>
       <p>Email: <a href="mailto:privacy@fitverse.com">privacy@fitverse.com</a></p>
 
-      <h2>8. Children's Privacy</h2>
+      <h2>8. Children&#39;s Privacy</h2>
       <p>
         Fitverse is not intended for children under 13. We do not knowingly collect data from minors without parental consent.
       </p>
