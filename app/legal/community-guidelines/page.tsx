@@ -7,7 +7,7 @@ export default function CommunityGuidelinesPage() {
       <p><strong>Effective Date:</strong> May 20, 2025</p>
 
       <p>
-        Fitverse is a community built around motivation, inclusivity, and respect. These Community Guidelines are here to ensure a positive experience for everyone on our platform—whether you're streaming, watching, commenting, or connecting.
+        Fitverse is a community built around motivation, inclusivity, and respect. These Community Guidelines are here to ensure a positive experience for everyone on our platform—whether you&#39;re streaming, watching, commenting, or connecting.
       </p>
 
       <h2>1. Respect Others</h2>
