@@ -8,18 +8,26 @@ import { Actions } from "./actions";
 export const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 w-full h-20 bg-[#252731] z-49 px-2 lg:px-4 flex items-center justify-between shadow-md">
-      <Logo />
+      {/* Left Section: Logo + Legal */}
+      <div className="flex items-center space-x-4">
+        <Logo />
+        <Link
+          href="/legal"
+          className="text-sm text-white hover:underline"
+        >
+          Legal & Help
+        </Link>
+      </div>
 
-      {/* Simple Legal link */}
-      <Link
-        href="/legal"
-        className="text-sm text-white hover:underline mr-4"
-      >
-        Legal & Help
-      </Link>
+      {/* Center: Search - absolutely centered */}
+      <div className="absolute left-1/2 transform -translate-x-1/2 w-full max-w-md px-4">
+        <Search />
+      </div>
 
-      <Search />
-      <Actions />
+      {/* Right: Actions */}
+      <div>
+        <Actions />
+      </div>
     </nav>
   );
 };
