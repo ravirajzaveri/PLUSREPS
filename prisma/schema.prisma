@@ -10,7 +10,7 @@ generator client {
   provider = "prisma-client-js"
 }
 model BetaStreamer {
-  id         String   @id @default(auto()) @map("_id") @test.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   name       String
   email      String
   socialLink String?
