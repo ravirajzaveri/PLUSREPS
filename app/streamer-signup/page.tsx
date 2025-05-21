@@ -46,40 +46,34 @@ export default function StreamerSignupPage() {
             type="text"
             placeholder="Your name"
             required
-            className="px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
+            className="px-4 py-2 rounded-md border border-gray-300 bg-white text-black focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
           />
           <input
             name="email"
             type="email"
             placeholder="Your email"
             required
-            className="px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
+            className="px-4 py-2 rounded-md border border-gray-300 bg-white text-black focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
           />
           <input
             name="social"
             type="text"
             placeholder="Instagram/YouTube link"
             required
-            className="px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
+            className="px-4 py-2 rounded-md border border-gray-300 bg-white text-black focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
           />
           <input
             name="niche"
             type="text"
             placeholder="Health & fitness style (e.g., HIIT, Yoga, Nutrition)"
             required
-            className="px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
-          />
-          <input
-            name="followers"
-            type="text"
-            placeholder="Optional: Number of followers"
-            className="px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
+            className="px-4 py-2 rounded-md border border-gray-300 bg-white text-black focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
           />
           <textarea
             name="pitch"
             placeholder="Tell us what makes your stream exciting"
             required
-            className="px-4 py-2 rounded-md border border-gray-300 min-h-[100px] font-sans focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
+            className="px-4 py-2 rounded-md border border-gray-300 bg-white text-black min-h-[100px] font-sans focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
           />
           <div className="text-sm text-gray-600 text-left w-full max-w-md">
             Optional: Upload a short video sample (max 50MB)
