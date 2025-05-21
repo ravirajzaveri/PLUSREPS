@@ -1,6 +1,6 @@
-&#39;use client&#39;;
+'use client';
 
-import { useState } from &#39;react&#39;;
+import { useState } from 'react';
 
 export default function StreamerSignupPage() {
   const [loading, setLoading] = useState(false);
@@ -11,8 +11,8 @@ export default function StreamerSignupPage() {
     setLoading(true);
     const formData = new FormData(e.currentTarget);
 
-    const res = await fetch(&#39;/api/streamer-signup&#39;, {
-      method: &#39;POST&#39;,
+    const res = await fetch('/api/streamer-signup', {
+      method: 'POST',
       body: formData,
     });
 
@@ -21,7 +21,7 @@ export default function StreamerSignupPage() {
       setSuccess(true);
       e.currentTarget.reset();
     } else {
-      alert(&#39;Something went wrong. Please try again.&#39;);
+      alert('Something went wrong. Please try again.');
     }
   }
 
@@ -34,7 +34,7 @@ export default function StreamerSignupPage() {
       </p>
 
       {success ? (
-        <p className="text-green-200 font-semibold">Thanks for signing up! We&#39;ll be in touch soon.</p>
+        <p className="text-green-200 font-semibold">Thanks for signing up! We&apos;ll be in touch soon.</p>
       ) : (
         <form
           onSubmit={handleSubmit}
@@ -50,7 +50,7 @@ export default function StreamerSignupPage() {
             placeholder="Tell us what makes your stream exciting"
             required
             className="px-4 py-2 rounded-md border min-h-[100px]"
-            style={{ fontFamily: &#39;inherit&#39; }}
+            style={{ fontFamily: 'inherit' }}
           />
           <input type="file" name="video" accept="video/*" className="px-2 py-1 border rounded-md" />
 
@@ -59,13 +59,13 @@ export default function StreamerSignupPage() {
             disabled={loading}
             className="mt-2 bg-black text-white font-semibold py-2 rounded-md hover:bg-gray-800 transition"
           >
-            {loading ? &#39;Submitting...&#39; : &#39;Sign Up&#39;}
+            {loading ? 'Submitting...' : 'Sign Up'}
           </button>
 
           <p className="text-xs text-gray-600 mt-2">
-            By signing up, you agree to our{&#39; &#39;}
-            <a href="/terms" className="underline text-blue-600" target="_blank">Terms of Service</a> and{&#39; &#39;}
-            <a href="/privacy" className="underline text-blue-600" target="_blank">Privacy Policy</a>.
+            By signing up, you agree to our{' '}
+            <a href="/terms" className="underline text-blue-600" target="_blank" rel="noopener noreferrer">Terms of Service</a> and{' '}
+            <a href="/privacy" className="underline text-blue-600" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
           </p>
         </form>
       )}
