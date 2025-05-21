@@ -41,28 +41,65 @@ export default function StreamerSignupPage() {
           className="w-full max-w-md bg-white text-black rounded-lg p-6 shadow-lg flex flex-col gap-4"
           encType="multipart/form-data"
         >
-          <input name="name" type="text" placeholder="Your name" required className="px-4 py-2 rounded-md border" />
-          <input name="email" type="email" placeholder="Your email" required className="px-4 py-2 rounded-md border" />
-          <input name="social" type="text" placeholder="Instagram/YouTube link" required className="px-4 py-2 rounded-md border" />
-          <input name="niche" type="text" placeholder="Health & fitness style (e.g., HIIT, Yoga, Nutrition)" required className="px-4 py-2 rounded-md border" />
+          <input
+            name="name"
+            type="text"
+            placeholder="Your name"
+            required
+            className="px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
+          />
+          <input
+            name="email"
+            type="email"
+            placeholder="Your email"
+            required
+            className="px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
+          />
+          <input
+            name="social"
+            type="text"
+            placeholder="Instagram/YouTube link"
+            required
+            className="px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
+          />
+          <input
+            name="niche"
+            type="text"
+            placeholder="Health & fitness style (e.g., HIIT, Yoga, Nutrition)"
+            required
+            className="px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
+          />
+          <input
+            name="followers"
+            type="text"
+            placeholder="Optional: Number of followers"
+            className="px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
+          />
           <textarea
             name="pitch"
             placeholder="Tell us what makes your stream exciting"
             required
-            className="px-4 py-2 rounded-md border min-h-[100px]"
-            style={{ fontFamily: 'inherit' }}
+            className="px-4 py-2 rounded-md border border-gray-300 min-h-[100px] font-sans focus:ring-2 focus:ring-purple-500 hover:border-gray-400 transition"
           />
-          <input type="file" name="video" accept="video/*" className="px-2 py-1 border rounded-md" />
+          <div className="text-sm text-gray-600 text-left w-full max-w-md">
+            Optional: Upload a short video sample (max 50MB)
+          </div>
+          <input
+            type="file"
+            name="video"
+            accept="video/*"
+            className="file:mr-3 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800 transition"
+          />
 
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 bg-black text-white font-semibold py-2 rounded-md hover:bg-gray-800 transition"
+            className="mt-2 bg-black text-white font-semibold py-2 rounded-md hover:bg-gray-800 transition-transform active:scale-95"
           >
             {loading ? 'Submitting...' : 'Sign Up'}
           </button>
 
-          <p className="text-xs text-gray-600 mt-2">
+          <p className="text-xs text-gray-600 mt-2 text-center">
             By signing up, you agree to our{' '}
             <a href="/terms" className="underline text-blue-600" target="_blank" rel="noopener noreferrer">Terms of Service</a> and{' '}
             <a href="/privacy" className="underline text-blue-600" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
