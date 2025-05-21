@@ -1,129 +1,78 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function StreamerSignupPage() {
-  const router = useRouter();
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    socialLink: '',
-    category: '',
-    bio: '',
-    file: null as File | null,
-  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setForm(prev => ({ ...prev, file }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitting(true);
-
-    const body = new FormData();
-    Object.entries(form).forEach(([key, value]) => {
-      if (value) body.append(key, value as string | Blob);
-    });
+    setLoading(true);
+    const formData = new FormData(e.currentTarget);
 
     const res = await fetch('/api/streamer-signup', {
       method: 'POST',
-      body,
+      body: formData,
     });
 
-    if (res.ok) router.push('/thank-you');
-    else alert('Something went wrong. Please try again.');
-
-    setSubmitting(false);
-  };
+    setLoading(false);
+    if (res.ok) {
+      setSuccess(true);
+      e.currentTarget.reset();
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  }
 
   return (
-    <div className="max-w-2xl mx-auto px-6 py-16 text-white">
-      <h1 className="text-4xl font-bold mb-4">Join the Fitverse Beta</h1>
-      <p className="text-lg mb-8 text-gray-300">
-        Be among the first to stream fitness content on Fitverse and grow your community from day one.
+    <div className="min-h-screen bg-[#9147ff] text-white flex flex-col items-center justify-center px-4 py-12">
+      <h1 className="text-5xl font-bold text-black mb-4">Stream. Sweat. Earn.</h1>
+      <p className="text-center max-w-xl text-lg mb-6">
+        Be one of the first creators on <span className="font-bold">Fitverse</span> — the new home for live health & fitness streaming.<br />
+        Connect with fans, go live, and earn from ads by top fitness brands & gyms.
       </p>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <input
-          type="text"
-          name="name"
-          placeholder="Full Name"
-          value={form.name}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-3 rounded bg-[#1e1f25] border border-gray-700 focus:outline-none"
-        />
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Email Address"
-          value={form.email}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-3 rounded bg-[#1e1f25] border border-gray-700"
-        />
-
-        <input
-          type="text"
-          name="socialLink"
-          placeholder="Instagram or YouTube Link (optional)"
-          value={form.socialLink}
-          onChange={handleChange}
-          className="w-full px-4 py-3 rounded bg-[#1e1f25] border border-gray-700"
-        />
-
-        <select
-          name="category"
-          value={form.category}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-3 rounded bg-[#1e1f25] border border-gray-700"
+      {success ? (
+        <p className="text-green-200 font-semibold">Thanks for signing up! We'll be in touch soon.</p>
+      ) : (
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-md bg-white text-black rounded-lg p-6 shadow-lg flex flex-col gap-4"
+          encType="multipart/form-data"
         >
-          <option value="" disabled>Select Fitness Category</option>
-          <option value="Strength Training">Strength Training</option>
-          <option value="Yoga">Yoga</option>
-          <option value="Dance">Dance</option>
-          <option value="Cardio">Cardio</option>
-          <option value="CrossFit">CrossFit</option>
-          <option value="Other">Other</option>
-        </select>
+          <input name="name" type="text" placeholder="Your name" required className="px-4 py-2 rounded-md border" />
+          <input name="email" type="email" placeholder="Your email" required className="px-4 py-2 rounded-md border" />
+          <input name="social" type="text" placeholder="Instagram/YouTube link" required className="px-4 py-2 rounded-md border" />
+          <input name="niche" type="text" placeholder="Health & fitness style (e.g., HIIT, Yoga, Nutrition)" required className="px-4 py-2 rounded-md border" />
+          <textarea
+            name="pitch"
+            placeholder="Tell us what makes your stream exciting"
+            required
+            className="px-4 py-2 rounded-md border min-h-[100px]"
+            style={{ fontFamily: 'inherit' }}
+          />
+          <input type="file" name="video" accept="video/*" className="px-2 py-1 border rounded-md" />
 
-        <textarea
-          name="bio"
-          placeholder="Tell us what makes your stream exciting..."
-          value={form.bio}
-          onChange={handleChange}
-          required
-          className="w-full px-4 py-3 rounded bg-[#1e1f25] border border-gray-700 min-h-[120px]"
-        />
+          <button
+            type="submit"
+            disabled={loading}
+            className="mt-2 bg-black text-white font-semibold py-2 rounded-md hover:bg-gray-800 transition"
+          >
+            {loading ? 'Submitting...' : 'Sign Up'}
+          </button>
 
-        <input
-          type="file"
-          name="file"
-          accept="video/*"
-          onChange={handleFileChange}
-          className="text-gray-400"
-        />
+          <p className="text-xs text-gray-600 mt-2">
+            By signing up, you agree to our{' '}
+            <a href="/terms" className="underline text-blue-600" target="_blank">Terms of Service</a> and{' '}
+            <a href="/privacy" className="underline text-blue-600" target="_blank">Privacy Policy</a>.
+          </p>
+        </form>
+      )}
 
-        <button
-          type="submit"
-          disabled={submitting}
-          className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded w-full"
-        >
-          {submitting ? 'Submitting...' : 'Submit Application'}
-        </button>
-      </form>
+      <footer className="text-sm text-gray-200 mt-10 text-center">
+        Built for the fitness community. By creators, for creators.
+      </footer>
     </div>
   );
 }
