@@ -3,11 +3,11 @@
 export default function SafetyPage() {
   return (
     <main className="prose mx-auto px-4 py-8">
-      <h1>Fitverse Safety Center</h1>
+      <h1>PLUSREPS Safety Center</h1>
       <p><strong>Effective Date:</strong> May 20, 2025</p>
 
       <p>
-        At Fitverse, safety is foundational. We are committed to providing a platform that supports healthy fitness journeys while protecting users from harm, harassment, and misinformation.
+        At PLUSREPS, safety is foundational. We are committed to providing a platform that supports healthy fitness journeys while protecting users from harm, harassment, and misinformation.
       </p>
 
       <h2>1. Our Safety Approach</h2>
@@ -38,7 +38,7 @@ export default function SafetyPage() {
 
       <h2>4. Moderation System</h2>
       <ul>
-        <li>Fitverse enforces our Community Guidelines with a tiered penalty system (warnings, strikes, bans).</li>
+        <li>PLUSREPS enforces our Community Guidelines with a tiered penalty system (warnings, strikes, bans).</li>
         <li>Streamers must moderate their chats or assign trusted moderators.</li>
         <li>Repeated violations will result in account suspension or removal.</li>
       </ul>
@@ -57,8 +57,8 @@ export default function SafetyPage() {
 
       <h2>7. Contact</h2>
       <p>
-        To report urgent safety concerns: <a href="mailto:safety@fitverse.com">safety@fitverse.com</a><br />
-        For non-urgent questions: <a href="mailto:support@fitverse.com">support@fitverse.com</a>
+        To report urgent safety concerns: <a href="mailto:safety@PLUSREPS.com">safety@PLUSREPS.com</a><br />
+        For non-urgent questions: <a href="mailto:support@PLUSREPS.com">support@PLUSREPS.com</a>
       </p>
     </main>
   );
