@@ -9,8 +9,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "fitstream",
-  description: "fitstream is the world's leading live video platform and community for fitness enthusiasts.",
+  title: "PLUSREPS",
+  description: "PLUSREPS is the world's leading live video platform and community for fitness enthusiasts.",
 };
 
 export default function RootLayout({
