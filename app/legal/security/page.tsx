@@ -3,11 +3,11 @@
 export default function SecurityPage() {
   return (
     <main className="prose mx-auto px-4 py-8">
-      <h1>Fitverse Security Policy</h1>
+      <h1>PLUSREPS Security Policy</h1>
       <p><strong>Effective Date:</strong> May 20, 2025</p>
 
       <p>
-        At Fitverse, we take the protection of our users’ data and content seriously. This Security Policy outlines the measures we use to secure your information and prevent unauthorized access.
+        At PLUSREPS, we take the protection of our users’ data and content seriously. This Security Policy outlines the measures we use to secure your information and prevent unauthorized access.
       </p>
 
       <h2>1. Account Security</h2>
@@ -34,7 +34,7 @@ export default function SecurityPage() {
       <h2>4. Payment Security</h2>
       <ul>
         <li>Payments are processed through Razorpay (India) and other PCI-DSS compliant providers.</li>
-        <li>Fitverse does not store full credit/debit card details on our servers.</li>
+        <li>PLUSREPS does not store full credit/debit card details on our servers.</li>
       </ul>
 
       <h2>5. Content Integrity</h2>
@@ -53,8 +53,8 @@ export default function SecurityPage() {
 
       <h2>7. Reporting Vulnerabilities</h2>
       <p>
-        If you discover a security issue on Fitverse, please report it to:<br />
-        <strong>Email:</strong> <a href="mailto:security@fitverse.com">security@fitverse.com</a>
+        If you discover a security issue on PLUSREPS, please report it to:<br />
+        <strong>Email:</strong> <a href="mailto:security@PLUSREPS.com">security@PLUSREPS.com</a>
       </p>
       <p>We reward responsible disclosure and may offer acknowledgment or other incentives.</p>
 
