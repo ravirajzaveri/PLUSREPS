@@ -7,7 +7,7 @@ export default function PrivacyIndiaPage() {
       <p><strong>Effective Date:</strong> May 20, 2025</p>
 
       <p>
-        This Privacy Policy explains how Fitverse Interactive Pvt. Ltd. (“Fitverse”, “we”, “our”, or “us”) collects, uses, and protects your personal information when you use our platform in India.
+        This Privacy Policy explains how PLUSREPS Interactive Pvt. Ltd. (“PLUSREPS”, “we”, “our”, or “us”) collects, uses, and protects your personal information when you use our platform in India.
       </p>
 
       <h2>1. Information We Collect</h2>
@@ -21,7 +21,7 @@ export default function PrivacyIndiaPage() {
 
       <h2>2. How We Use Your Information</h2>
       <ul>
-        <li>Provide, personalize, and improve Fitverse.</li>
+        <li>Provide, personalize, and improve PLUSREPS.</li>
         <li>Process payments and subscriptions.</li>
         <li>Communicate with you about updates and features.</li>
         <li>Monitor and moderate content.</li>
@@ -63,11 +63,11 @@ export default function PrivacyIndiaPage() {
         <li>Delete your account</li>
         <li>Opt out of certain communications</li>
       </ul>
-      <p>Email: <a href="mailto:privacy@fitverse.com">privacy@fitverse.com</a></p>
+      <p>Email: <a href="mailto:privacy@PLUSREPS.com">privacy@PLUSREPS.com</a></p>
 
       <h2>8. Children&#39;s Privacy</h2>
       <p>
-        Fitverse is not intended for children under 13. We do not knowingly collect data from minors without parental consent.
+        PLUSREPS is not intended for children under 13. We do not knowingly collect data from minors without parental consent.
       </p>
 
       <h2>9. Updates to this Policy</h2>
@@ -78,8 +78,8 @@ export default function PrivacyIndiaPage() {
       <h2>10. Contact</h2>
       <p>
         For any privacy concerns, contact:<br />
-        <strong>Email:</strong> <a href="mailto:privacy@fitverse.com">privacy@fitverse.com</a><br />
-        <strong>India Office:</strong> Fitverse Interactive Pvt. Ltd., New Delhi, India
+        <strong>Email:</strong> <a href="mailto:privacy@PLUSREPS.com">privacy@PLUSREPS.com</a><br />
+        <strong>India Office:</strong> PLUSREPS Interactive Pvt. Ltd., New Delhi, India
       </p>
     </main>
   );
