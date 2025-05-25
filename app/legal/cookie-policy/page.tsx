@@ -8,7 +8,7 @@ export default function CookiePolicyPage() {
       <p><strong>Effective Date:</strong> May 20, 2025</p>
 
       <p>
-        This Cookie Policy explains how Fitverse Interactive Pvt. Ltd. and Fitverse Interactive Inc. (“Fitverse”, “we”, “our”, or “us”) use cookies and similar technologies on our websites and applications.
+        This Cookie Policy explains how PLUSREPS Interactive Pvt. Ltd. and PLUSREPS Interactive Inc. (“PLUSREPS”, “we”, “our”, or “us”) use cookies and similar technologies on our websites and applications.
       </p>
 
       <h2>1. What Are Cookies?</h2>
@@ -37,7 +37,7 @@ export default function CookiePolicyPage() {
         <li>In-app cookie consent banners (on supported platforms)</li>
         <li>“Do Not Track” signals, where applicable</li>
       </ul>
-      <p><strong>Note:</strong> Disabling some cookies may affect the functionality of Fitverse.</p>
+      <p><strong>Note:</strong> Disabling some cookies may affect the functionality of PLUSREPS.</p>
 
       <h2>5. Data Retention</h2>
       <p>
@@ -56,7 +56,7 @@ export default function CookiePolicyPage() {
       <h2>7. Contact</h2>
       <p>
         If you have any questions about our use of cookies, contact us at:<br />
-        <strong>Email:</strong> <a href="mailto:privacy@fitverse.com">privacy@fitverse.com</a>
+        <strong>Email:</strong> <a href="mailto:privacy@PLUSREPS.com">privacy@PLUSREPS.com</a>
       </p>
     </main>
   );
