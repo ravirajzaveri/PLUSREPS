@@ -13,7 +13,7 @@ export const Logo = () => {
   return (
     <Link href="/">
       <div className="flex items-center gap-x-4 hover:opacity-75 transition">
-        <div className="bg-white rounded-full p-3 mr-12 shrink-0 lg:mr-0 lg:shrink">
+        <div className="bg-transparent rounded-full p-3 mr-12 shrink-0 lg:mr-0 lg:shrink">
           <Image src="/PLUSREPSLOGOPR.svg" alt="Logo" width={32} height={32} />
         </div>
         <div className={cn("hidden lg:block", font.className)}>
