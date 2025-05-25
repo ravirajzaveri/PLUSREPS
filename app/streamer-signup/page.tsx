@@ -29,7 +29,7 @@ export default function StreamerSignupPage() {
     <div className="min-h-screen bg-[#9147ff] text-white flex flex-col items-center justify-center px-4 py-12">
       <h1 className="text-5xl font-bold text-black mb-4">Stream. Sweat. Earn.</h1>
       <p className="text-center max-w-xl text-lg mb-6">
-        Be one of the first creators on <span className="font-bold">Fitverse</span> — the new home for live health & fitness streaming.<br />
+        Be one of the first creators on <span className="font-bold">PLUSREPS</span> — the new home for live health & fitness streaming.<br />
         Connect with fans, go live, and earn from ads by top fitness brands & gyms.
       </p>
 
