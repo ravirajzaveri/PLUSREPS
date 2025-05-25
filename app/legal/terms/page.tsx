@@ -4,26 +4,26 @@ export default function TermsPage() {
       <h1>Terms of Service</h1>
       <p><strong>Effective Date:</strong> May 20, 2025</p>
       <p>
-        Welcome to Fitverse, a platform operated by Fitverse Interactive Pvt. Ltd., registered in India. These Terms of Service (“Terms”) govern your access to and use of the Fitverse platform, including our websites, mobile apps, and services (“Fitverse” or the “Platform”).
+        Welcome to PLUSREPS, a platform operated by PLUSREPS Interactive Pvt. Ltd., registered in India. These Terms of Service (“Terms”) govern your access to and use of the PLUSREPS platform, including our websites, mobile apps, and services (“PLUSREPS” or the “Platform”).
       </p>
-      <p>By accessing or using Fitverse, you agree to be bound by these Terms.</p>
+      <p>By accessing or using PLUSREPS, you agree to be bound by these Terms.</p>
 
-      <h2>1. Who Can Use Fitverse</h2>
+      <h2>1. Who Can Use PLUSREPS</h2>
       <p>
-        You must be at least 13 years old to use Fitverse. If you are under 18, you must have your parent or guardian’s consent. By using Fitverse, you affirm that you have the legal capacity to enter into these Terms.
+        You must be at least 13 years old to use PLUSREPS. If you are under 18, you must have your parent or guardian’s consent. By using PLUSREPS, you affirm that you have the legal capacity to enter into these Terms.
       </p>
 
-      <h2>2. Your Fitverse Account</h2>
+      <h2>2. Your PLUSREPS Account</h2>
       <p>
-        To use certain features of Fitverse, you must create an account. You are responsible for all activity that occurs under your account. You agree to provide accurate information and to keep it up to date.
+        To use certain features of PLUSREPS, you must create an account. You are responsible for all activity that occurs under your account. You agree to provide accurate information and to keep it up to date.
       </p>
 
       <h2>3. Fitness Content and Advice</h2>
-      <p>Fitverse provides user-generated fitness content. We do not provide medical advice. You acknowledge that:</p>
+      <p>PLUSREPS provides user-generated fitness content. We do not provide medical advice. You acknowledge that:</p>
       <ul>
         <li>Any workouts, advice, or demonstrations are for informational purposes only.</li>
         <li>You should consult a doctor before starting any fitness program.</li>
-        <li>Fitverse is not responsible for injuries, health risks, or misuse of content.</li>
+        <li>PLUSREPS is not responsible for injuries, health risks, or misuse of content.</li>
       </ul>
 
       <h2>4. Payments and Subscriptions</h2>
@@ -48,12 +48,12 @@ export default function TermsPage() {
 
       <h2>6. Content Ownership</h2>
       <p>
-        You retain ownership of your content but grant Fitverse a worldwide, non-exclusive, royalty-free license to use, display, and distribute your content for platform promotion and operation.
+        You retain ownership of your content but grant PLUSREPS a worldwide, non-exclusive, royalty-free license to use, display, and distribute your content for platform promotion and operation.
       </p>
 
       <h2>7. Copyright & Takedown Requests</h2>
       <p>
-        Fitverse respects copyright law. If you believe content infringes your rights, contact us at <a href="mailto:legal@fitverse.com">legal@fitverse.com</a> with relevant proof and takedown request.
+        PLUSREPS respects copyright law. If you believe content infringes your rights, contact us at <a href="mailto:legal@PLUSREPS.com">legal@PLUSREPS.com</a> with relevant proof and takedown request.
       </p>
 
       <h2>8. Termination</h2>
@@ -63,7 +63,7 @@ export default function TermsPage() {
 
       <h2>9. Disclaimers and Limitation of Liability</h2>
       <p>
-        Fitverse is provided “as is.” We do not guarantee uninterrupted service or error-free content. To the extent permitted by Indian law, Fitverse disclaims liability for damages, injuries, or losses arising from your use of the platform.
+        PLUSREPS is provided “as is.” We do not guarantee uninterrupted service or error-free content. To the extent permitted by Indian law, PLUSREPS disclaims liability for damages, injuries, or losses arising from your use of the platform.
       </p>
 
       <h2>10. Governing Law</h2>
@@ -73,7 +73,7 @@ export default function TermsPage() {
 
       <h2>11. Contact</h2>
       <p>
-        For questions or concerns, contact: <a href="mailto:support@fitverse.com">support@fitverse.com</a>
+        For questions or concerns, contact: <a href="mailto:support@PLUSREPS.com">support@PLUSREPS.com</a>
       </p>
     </main>
   );
