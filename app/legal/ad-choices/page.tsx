@@ -7,7 +7,7 @@ export default function AdChoicesPage() {
       <p><strong>Effective Date:</strong> May 20, 2025</p>
 
       <p>
-        At Fitverse, we use advertising to support the platform and provide relevant experiences to our users. This Ad Choices Policy explains how we use targeted advertising and how you can manage your preferences.
+        At PLUSREPS, we use advertising to support the platform and provide relevant experiences to our users. This Ad Choices Policy explains how we use targeted advertising and how you can manage your preferences.
       </p>
 
       <h2>1. Personalized Advertising</h2>
@@ -24,7 +24,7 @@ export default function AdChoicesPage() {
       <h2>2. Data We Use for Ads</h2>
       <p>Advertising may be based on:</p>
       <ul>
-        <li>Your Fitverse activity (e.g., streams watched, interactions)</li>
+        <li>Your PLUSREPS activity (e.g., streams watched, interactions)</li>
         <li>Device type and general location</li>
         <li>Your profile interests or demographic info (if provided)</li>
         <li>Third-party cookies and tracking pixels</li>
@@ -33,13 +33,13 @@ export default function AdChoicesPage() {
 
       <h2>3. Third-Party Ad Partners</h2>
       <p>
-        Some ads on Fitverse may be delivered by third-party ad networks. These networks may use their own tracking tools and cookies, subject to their privacy policies.
+        Some ads on PLUSREPS may be delivered by third-party ad networks. These networks may use their own tracking tools and cookies, subject to their privacy policies.
       </p>
 
       <h2>4. Your Choices</h2>
       <p>You can manage ad preferences through:</p>
       <ul>
-        <li>“Ad Settings” in your Fitverse account (coming soon)</li>
+        <li>“Ad Settings” in your PLUSREPS account (coming soon)</li>
         <li>
           Opt-out tools provided by: <br />
           <a href="https://optout.aboutads.info" target="_blank" rel="noopener noreferrer">YourAdChoices</a><br />
@@ -61,7 +61,7 @@ export default function AdChoicesPage() {
 
       <h2>7. Contact Us</h2>
       <p>
-        For questions or concerns, contact: <a href="mailto:ads@fitverse.com">ads@fitverse.com</a>
+        For questions or concerns, contact: <a href="mailto:ads@PLUSREPS.com">ads@PLUSREPS.com</a>
       </p>
     </main>
   );
