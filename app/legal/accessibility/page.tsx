@@ -7,7 +7,7 @@ export default function AccessibilityPage() {
       <p><strong>Effective Date:</strong> May 20, 2025</p>
 
       <p>
-        Fitverse is committed to making our platform accessible to all individuals, including those with disabilities. We believe fitness should be inclusive, and we are continuously working to improve the usability of our site and apps for everyone.
+        PLUSREPS is committed to making our platform accessible to all individuals, including those with disabilities. We believe fitness should be inclusive, and we are continuously working to improve the usability of our site and apps for everyone.
       </p>
 
       <h2>1. Our Commitment</h2>
@@ -21,7 +21,7 @@ export default function AccessibilityPage() {
       </ul>
 
       <h2>2. Supported Features</h2>
-      <p>Fitverse currently supports:</p>
+      <p>PLUSREPS currently supports:</p>
       <ul>
         <li>Screen reader compatibility</li>
         <li>Keyboard navigation</li>
@@ -40,9 +40,9 @@ export default function AccessibilityPage() {
       <h2>4. Feedback</h2>
       <p>
         If you experience any accessibility barriers or have suggestions for improvement, please contact:<br />
-        <strong>Email:</strong> <a href="mailto:accessibility@fitverse.com">accessibility@fitverse.com</a>
+        <strong>Email:</strong> <a href="mailto:accessibility@PLUSREPS.com">accessibility@PLUSREPS.com</a>
       </p>
-      <p>Your feedback helps us make Fitverse better for everyone.</p>
+      <p>Your feedback helps us make PLUSREPS better for everyone.</p>
 
       <h2>5. Third-Party Content</h2>
       <p>
