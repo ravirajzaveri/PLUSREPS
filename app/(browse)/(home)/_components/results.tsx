@@ -14,7 +14,8 @@ export const Results = async () => {
       {data.length === 0 && (
         <div className="text-muted-foreground text-sm">No streams found.</div>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 px-2 sm:px-0">
+
         {data.map((result) => (
           <ResultCard key={result.id} data={result} />
         ))}
