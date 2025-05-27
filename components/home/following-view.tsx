@@ -11,10 +11,16 @@ interface StreamData {
   thumbnail: string | null;
   user: {
     id: string;
+    email: string;
     username: string;
     imageUrl: string;
+    externalUserId: string;
+    bio: string | null;
+    createdAt: string;  // or `Date` if you know it's a Date
+    updatedAt: string;  // or `Date` if you know it's a Date
   };
 }
+
 
 export const FollowingView = () => {
   const [data, setData] = useState<StreamData[]>([]);
