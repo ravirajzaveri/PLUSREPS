@@ -25,10 +25,12 @@ export const FollowingView = () => {
         const res = await fetch("/api/following-streams"); // You'll need to implement this API
         const json = await res.json();
         setData(
-json.sort((a: { isLive: boolean }, b: { isLive: boolean }) => {
-  if (a.isLive === b.isLive) return 0;
-  return a.isLive ? -1 : 1;
-});
+  json.sort((a: { isLive: boolean }, b: { isLive: boolean }) => {
+    if (a.isLive === b.isLive) return 0;
+    return a.isLive ? -1 : 1;
+  })
+);
+
 
 
       } catch (error) {
