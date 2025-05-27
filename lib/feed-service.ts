@@ -13,7 +13,7 @@ export const getStreams = async () => {
 
 console.log("DEBUG: fetching streams...");
 
-let streams = await db.stream.findMany({ ... });
+let streams = await db.stream.findMany({ });
 
 console.log("DEBUG: found", streams.length, "streams");
 return streams;
