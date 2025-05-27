@@ -69,28 +69,26 @@ export const Chat = ({
   };
 
   return (
-    <div className="flex flex-col bg-background border-l border-b pt-0 h-[100dvh] lg:h-[calc(100vh-80px)]">
+    <div className="flex flex-col bg-background pt-0 h-full">
       <ChatHeader />
       {variant === ChatVariant.CHAT && (
-        <div className="flex flex-col flex-1 overflow-hidden">
-          {/* Scrollable chat */}
-          <div className="flex-1 overflow-y-auto px-2 pt-2">
-            <ChatList messages={reversedMessages} isHidden={isHidden} />
-          </div>
-        
-          {/* Fixed input at bottom */}
-          <div className="border-t bg-background px-2 pb-2 pt-1">
-            <ChatForm
-              onSubmit={onSubmit}
-              value={value}
-              onChange={onChange}
-              isHidden={isHidden}
-              isFollowersOnly={isChatFollowersOnly}
-              isDelayed={isChatDelayed}
-              isFollowing={isFollowing}
-            />
-          </div>
-        </div>
+    <div className="flex flex-col flex-1 overflow-hidden">
+      <div className="flex-1 overflow-y-auto px-2 pt-2">
+        <ChatList messages={reversedMessages} isHidden={isHidden} />
+      </div>
+      <div className="border-t bg-background px-2 pb-2 pt-1">
+        <ChatForm
+          onSubmit={onSubmit}
+          value={value}
+          onChange={onChange}
+          isHidden={isHidden}
+          isFollowersOnly={isChatFollowersOnly}
+          isDelayed={isChatDelayed}
+          isFollowing={isFollowing}
+        />
+      </div>
+    </div>
+
 
       )}
       {variant === ChatVariant.COMMUNITY && (
