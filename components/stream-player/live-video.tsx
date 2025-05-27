@@ -94,7 +94,7 @@ if (showPreRoll) {
         href="https://dymatize.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute bottom-6 right-6 z-10 bg-white/90 text-black px-4 py-2 rounded-md text-sm font-semibold hover:bg-white"
+        className="absolute bottom-12 right-6 z-10 bg-white/90 text-black px-4 py-2 rounded-md text-sm font-semibold hover:bg-white"
       >
         Visit Advertiser
       </a>
