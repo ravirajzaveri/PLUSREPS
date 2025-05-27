@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 export const SubscribeButton = ({ userId }: { userId: string }) => {
   return (
     <Button variant="primary">
-      Subscribe
+      Subs
     </Button>
   );
 };
