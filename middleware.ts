@@ -8,6 +8,8 @@ export default authMiddleware({
     "/",
     "/(browse)/(home)",       // ✅ explicitly allow your home tab
     "/(browse)/(home)/live",    // ✅ add this line just in case
+    "/(browse)/:username",   // ✅ Required if your stream route is inside /(browse) layout
+    "/:username",            // ✅ Optional fallback for top-level user routes
     "/api/webhooks(.*)",
     "/api/uploadthing",
     "/:username",
