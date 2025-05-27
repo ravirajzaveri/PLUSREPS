@@ -56,70 +56,81 @@ export const StreamPlayer = ({
         </div>
       )}
       <LiveKitRoom
-        token={token}
-        serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_WS_URL!}
-        className={cn(
-          "h-[100dvh] w-full", // mobile full height
-          "lg:grid lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 lg:gap-y-0",
-          collapsed && "lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2"
-        )}
-      >
-        {/* ✅ Mobile layout */}
-        <div className="flex flex-col h-full lg:hidden">
-          <div className="shrink-0">
-            <Video hostName={user.username} hostIdentity={user.id} />
-          </div>
-          <div className="flex-1 overflow-hidden flex flex-col">
-            <Chat
-              viewerName={name}
-              hostName={user.username}
-              hostIdentity={user.id}
-              isFollowing={isFollowing}
-              isChatEnabled={stream.isChatEnabled}
-              isChatDelayed={stream.isChatDelayed}
-              isChatFollowersOnly={stream.isChatFollowersOnly}
-            />
-          </div>
-        </div>
-      
-        {/* ✅ Desktop layout */}
-        <div className="hidden lg:block col-span-1 lg:col-span-2 xl:col-span-2 2xl:col-span-5 overflow-y-auto hidden-scrollbar pb-10">
-          <Video hostName={user.username} hostIdentity={user.id} />
-          <Header
-            hostName={user.username}
-            hostIdentity={user.id}
-            viewerIdentity={identity}
-            imageUrl={user.imageUrl}
-            isFollowing={isFollowing}
-            name={stream.title}
-          />
-          <InfoCard
-            hostIdentity={user.id}
-            viewerIdentity={identity}
-            name={stream.title}
-            thumbnailUrl={stream.thumbnail}
-          />
-          <AboutCard
-            hostName={user.username}
-            hostIdentity={user.id}
-            viewerIdentity={identity}
-            bio={user.bio}
-            followedByCount={user._count.followedBy}
-          />
-        </div>
-      
-        <div className={cn("hidden lg:block col-span-1", collapsed && "hidden")}>
-          <Chat
-            viewerName={name}
-            hostName={user.username}
-            hostIdentity={user.id}
-            isFollowing={isFollowing}
-            isChatEnabled={stream.isChatEnabled}
-            isChatDelayed={stream.isChatDelayed}
-            isChatFollowersOnly={stream.isChatFollowersOnly}
-          />
-        </div>
-      </LiveKitRoom>
+  token={token}
+  serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_WS_URL!}
+  className="h-[100dvh] w-full"
+>
+  {/* ✅ Mobile layout */}
+  <div className="lg:hidden flex flex-col h-full">
+    <div className="shrink-0">
+      <Video hostName={user.username} hostIdentity={user.id} />
+    </div>
+
+    <div className="px-3 py-2">
+      <Header
+        hostName={user.username}
+        hostIdentity={user.id}
+        viewerIdentity={identity}
+        imageUrl={user.imageUrl}
+        isFollowing={isFollowing}
+        name={stream.title}
+      />
+    </div>
+
+    <div className="flex-1 overflow-hidden flex flex-col">
+      <Chat
+        viewerName={name}
+        hostName={user.username}
+        hostIdentity={user.id}
+        isFollowing={isFollowing}
+        isChatEnabled={stream.isChatEnabled}
+        isChatDelayed={stream.isChatDelayed}
+        isChatFollowersOnly={stream.isChatFollowersOnly}
+      />
+    </div>
+  </div>
+
+  {/* ✅ Desktop layout */}
+  <div className="hidden lg:grid lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 w-full h-full">
+    <div className="col-span-1 lg:col-span-2 xl:col-span-2 2xl:col-span-5 overflow-y-auto pb-10">
+      <Video hostName={user.username} hostIdentity={user.id} />
+      <Header
+        hostName={user.username}
+        hostIdentity={user.id}
+        viewerIdentity={identity}
+        imageUrl={user.imageUrl}
+        isFollowing={isFollowing}
+        name={stream.title}
+      />
+      <InfoCard
+        hostIdentity={user.id}
+        viewerIdentity={identity}
+        name={stream.title}
+        thumbnailUrl={stream.thumbnail}
+      />
+      <AboutCard
+        hostName={user.username}
+        hostIdentity={user.id}
+        viewerIdentity={identity}
+        bio={user.bio}
+        followedByCount={user._count.followedBy}
+      />
+    </div>
+
+    <div className={cn("col-span-1", collapsed && "hidden")}>
+      <Chat
+        viewerName={name}
+        hostName={user.username}
+        hostIdentity={user.id}
+        isFollowing={isFollowing}
+        isChatEnabled={stream.isChatEnabled}
+        isChatDelayed={stream.isChatDelayed}
+        isChatFollowersOnly={stream.isChatFollowersOnly}
+      />
+    </div>
+  </div>
+</LiveKitRoom>
+
 
     </>
   );
