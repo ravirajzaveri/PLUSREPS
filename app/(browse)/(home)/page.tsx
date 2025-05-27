@@ -1,7 +1,7 @@
 "use client";
 
-import { Suspense, useState } from "react";
-
+import { Suspense } from "react";
+import { useState } from "react";
 import { Results, ResultsSkeleton } from "./_components/results";
 import { LiveReelsView } from "./_components/live-reels-view";
 import { HomeTabs } from "./_components/home-tabs";
