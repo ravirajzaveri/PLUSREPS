@@ -6,7 +6,6 @@ import { authMiddleware } from "@clerk/nextjs";
 export default authMiddleware({
   publicRoutes: [
     "/",
-    "/(browse)/(home)(.*)",     // ✅ allow home + subpaths
     "/(browse)/(home)",       // ✅ explicitly allow your home tab
     "/(browse)/(home)/live",    // ✅ add this line just in case
     "/(browse)/:username",   // ✅ Required if your stream route is inside /(browse) layout
