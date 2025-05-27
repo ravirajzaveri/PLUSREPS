@@ -61,34 +61,38 @@ export const StreamPlayer = ({
   className="h-[100dvh] w-full"
 >
   {/* ✅ Mobile layout */}
-  <div className="lg:hidden flex flex-col h-full">
-    <div className="shrink-0">
-      <Video hostName={user.username} hostIdentity={user.id} />
+    <div className="lg:hidden flex flex-col h-full overflow-hidden">
+      {/* Video at top */}
+      <div className="shrink-0">
+        <Video hostName={user.username} hostIdentity={user.id} />
+      </div>
+    
+      {/* Streamer Header */}
+      <div className="px-3 py-2">
+        <Header
+          hostName={user.username}
+          hostIdentity={user.id}
+          viewerIdentity={identity}
+          imageUrl={user.imageUrl}
+          isFollowing={isFollowing}
+          name={stream.title}
+        />
+      </div>
+    
+      {/* Chat fills the rest of the screen */}
+      <div className="flex-1 overflow-hidden flex flex-col">
+        <Chat
+          viewerName={name}
+          hostName={user.username}
+          hostIdentity={user.id}
+          isFollowing={isFollowing}
+          isChatEnabled={stream.isChatEnabled}
+          isChatDelayed={stream.isChatDelayed}
+          isChatFollowersOnly={stream.isChatFollowersOnly}
+        />
+      </div>
     </div>
 
-    <div className="px-3 py-2">
-      <Header
-        hostName={user.username}
-        hostIdentity={user.id}
-        viewerIdentity={identity}
-        imageUrl={user.imageUrl}
-        isFollowing={isFollowing}
-        name={stream.title}
-      />
-    </div>
-
-    <div className="flex-1 overflow-hidden flex flex-col">
-      <Chat
-        viewerName={name}
-        hostName={user.username}
-        hostIdentity={user.id}
-        isFollowing={isFollowing}
-        isChatEnabled={stream.isChatEnabled}
-        isChatDelayed={stream.isChatDelayed}
-        isChatFollowersOnly={stream.isChatFollowersOnly}
-      />
-    </div>
-  </div>
 
   {/* ✅ Desktop layout */}
   <div className="hidden lg:grid lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 w-full h-full">
