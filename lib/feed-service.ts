@@ -11,13 +11,7 @@ export const getStreams = async () => {
     userId = null;
   }
 
-console.log("DEBUG: fetching streams...");
-
-let streams = await db.stream.findMany({});
-
-console.log("DEBUG: found", streams.length, "streams");
-return streams;
-
+  let streams;
 
   if (userId) {
     streams = await db.stream.findMany({
@@ -32,41 +26,27 @@ return streams;
           },
         },
       },
-      select: {
-        id: true,
+      include: {
         user: true,
-        isLive: true,
-        title: true,
-        thumbnail: true,
       },
       orderBy: [
-        {
-          isLive: "desc",
-        },
-        {
-          updatedAt: "desc",
-        },
+        { isLive: "desc" },
+        { updatedAt: "desc" },
       ],
     });
   } else {
     streams = await db.stream.findMany({
-      select: {
-        id: true,
+      include: {
         user: true,
-        isLive: true,
-        title: true,
-        thumbnail: true,
       },
       orderBy: [
-        {
-          isLive: "desc",
-        },
-        {
-          updatedAt: "desc",
-        },
+        { isLive: "desc" },
+        { updatedAt: "desc" },
       ],
     });
   }
 
+  console.log("DEBUG: found", streams.length, "streams");
   return streams;
 };
+
