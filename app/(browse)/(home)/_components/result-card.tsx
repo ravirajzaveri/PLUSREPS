@@ -8,12 +8,17 @@ import { UserAvatar, UserAvatarSkeleton } from "@/components/user-avatar";
 
 interface ResultCardProps {
   data: {
-    user: User;
+    user: {
+      id: string;
+      username: string;
+      imageUrl: string;
+    };
     isLive: boolean;
     title: string;
     thumbnail: string | null;
   };
 }
+
 
 export const ResultCard = ({ data }: ResultCardProps) => {
   return (
