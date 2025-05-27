@@ -15,6 +15,9 @@ export default authMiddleware({
     "/search",
     "/legal(.*)",
   ],
+   afterAuth(auth, req) {
+    console.log("Matched path:", req.nextUrl.pathname);
+  },
 });
 
 export const config = {
