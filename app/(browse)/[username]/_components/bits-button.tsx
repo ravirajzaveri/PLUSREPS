@@ -2,15 +2,24 @@
 
 import { Button } from "@/components/ui/button";
 
-export const BitsButton = ({ userId }: { userId: string }) => {
+interface BitsButtonProps {
+  userId: string;
+  compact?: boolean;
+}
+
+export const BitsButton = ({ userId, compact }: BitsButtonProps) => {
   const handleSendBits = () => {
-    // TODO: Open Razorpay payment modal here
     console.log("Sending bits to:", userId);
   };
 
   return (
-    <Button variant="secondary" onClick={handleSendBits}>
-      Send Bits
+    <Button
+      variant="secondary"
+      size="sm"
+      className={`w-full ${compact ? "text-xs px-2 py-1" : ""}`}
+      onClick={handleSendBits}
+    >
+      {compact ? "Bits" : "Send Bits"}
     </Button>
   );
 };
