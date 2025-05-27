@@ -7,6 +7,7 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/(browse)/(home)",       // ✅ explicitly allow your home tab
+    "/(browse)/(home)/live",    // ✅ add this line just in case
     "/api/webhooks(.*)",
     "/api/uploadthing",
     "/:username",
