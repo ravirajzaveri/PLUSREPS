@@ -1,7 +1,7 @@
 "use client";
 
 import { SubscribeButton } from "@/app/(browse)/[username]/_components/subscribe-button";
-import { BitsButton } from "@/app/(browse)/[username]/_components/bits-button";
+import { BitsButton } from "@/app/(browse)/[username]/_components/bits-button"; // renamed to GiftButton if desired
 
 import { toast } from "sonner";
 import { Heart } from "lucide-react";
@@ -56,29 +56,28 @@ export const Actions = ({
   };
 
   return (
-    <div className="flex flex-col w-full lg:w-auto">
-      {/* Compact inline row for all actions */}
-      <div className="flex items-center gap-2 w-full">
-        <Button
-          disabled={isPending || isHost}
-          onClick={toggleFollow}
-          variant="primary"
-          size="sm"
-          className="flex-1 px-2 py-1 text-sm"
-        >
-          <Heart
-            className={cn("h-4 w-4 mr-1", isFollowing ? "fill-white" : "fill-none")}
-          />
-          {isFollowing ? "Unfollow" : "Follow"}
-        </Button>
+    <div className="flex w-full lg:w-auto gap-2 items-center">
+      {/* Just Heart icon */}
+      <Button
+        disabled={isPending || isHost}
+        onClick={toggleFollow}
+        variant="ghost"
+        size="icon"
+        className="p-2"
+      >
+        <Heart
+          className={cn("h-5 w-5", isFollowing ? "fill-white" : "fill-none")}
+        />
+      </Button>
 
-        <div className="flex-1">
-          <SubscribeButton userId={hostIdentity} compact />
-        </div>
+      {/* Subscribe popup button */}
+      <div className="flex-1">
+        <SubscribeButton userId={hostIdentity} compact />
+      </div>
 
-        <div className="flex-1">
-          <BitsButton userId={hostIdentity} compact />
-        </div>
+      {/* Gift subs */}
+      <div className="flex-1">
+        <BitsButton userId={hostIdentity} compact />
       </div>
     </div>
   );
