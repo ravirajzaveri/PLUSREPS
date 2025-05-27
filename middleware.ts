@@ -6,13 +6,14 @@ import { authMiddleware } from "@clerk/nextjs";
 export default authMiddleware({
   publicRoutes: [
     "/",
-    "/(browse)/(home)",       // ✅ explicitly allow your home tab
-    "/(browse)/(home)/live",    // ✅ add this line just in case
+    "/(browse)/home",
+    "/(browse)/home/:path*",  // ✅ match /home/live and any other subroutes
+    "/(browse)/:username",
+    "/:username",
     "/api/webhooks(.*)",
     "/api/uploadthing",
-    "/:username",
     "/search",
-    "/legal(.*)", // ← allow all legal pages
+    "/legal(.*)",
   ],
 });
 
