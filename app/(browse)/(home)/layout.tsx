@@ -9,7 +9,7 @@ const BrowseLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       {/* Scrollable Content */}
-      <main className="flex-1 overflow-y-auto pt-36">
+      <main className="flex-1 overflow-y-auto pt-28">
         {children}
       </main>
 
