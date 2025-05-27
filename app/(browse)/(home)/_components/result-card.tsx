@@ -31,17 +31,21 @@ export const ResultCard = ({ data }: ResultCardProps) => {
           isLive={data.isLive}
           username={data.user.username}
         />
-        <div className="flex gap-x-2 sm:gap-x-3">
-          <UserAvatar
-            username={data.user.username}
-            imageUrl={data.user.imageUrl}
-            isLive={data.isLive}
-          />
-          <div className="flex flex-col text-sm overflow-hidden">
-            <p className="truncate font-semibold text-sm sm:text-base leading-tight hover:text-blue-500">
-              {data.title}
-            </p>
+        <div className="flex gap-x-2 sm:gap-x-3 items-center">
+        <UserAvatar
+          username={data.user.username}
+          imageUrl={data.user.imageUrl}
+          isLive={data.isLive}
+        />
+        <div className="flex flex-col text-sm overflow-hidden">
+          <p className="truncate font-semibold text-sm sm:text-base leading-tight hover:text-blue-500">
+            {data.title}
+          </p>
+          <div className="flex items-center gap-2">
             <p className="text-muted-foreground">{data.user.username}</p>
+            {data.isLive && (
+              <span className="text-red-500 text-xs font-bold animate-pulse">LIVE</span>
+            )}
           </div>
         </div>
       </div>
