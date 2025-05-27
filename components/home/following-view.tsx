@@ -3,22 +3,14 @@
 import { useEffect, useState } from "react";
 import { ResultCard, ResultCardSkeleton } from "@/app/(browse)/(home)/_components/result-card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { User } from "@prisma/client";
 
 interface StreamData {
   id: string;
   isLive: boolean;
   title: string;
   thumbnail: string | null;
-  user: {
-    id: string;
-    email: string;
-    username: string;
-    imageUrl: string;
-    externalUserId: string;
-    bio: string | null;
-    createdAt: string;  // or `Date` if you know it's a Date
-    updatedAt: string;  // or `Date` if you know it's a Date
-  };
+  user: User;
 }
 
 
