@@ -127,18 +127,36 @@ export const getFollowedUsers = async () => {
       include: {
         following: {
           include: {
-            stream: {
-              select: {
-                isLive: true,
-              },
-            },
+            stream: true, // ✅ include full stream object
           },
         },
       },
     });
 
-    return followedUsers;
-  } catch {
+    // ✅ Flatten the structure and normalize for frontend
+    const result = followedUsers.map((entry) => {
+      const user = entry.following;
+
+      return {
+        id: user.id,
+        isLive: user.stream?.isLive ?? false,
+        title: user.stream?.title ?? "Offline",
+        thumbnail: user.stream?.thumbnail ?? null,
+        user: {
+          id: user.id,
+          username: user.username,
+          imageUrl: user.imageUrl,
+        },
+      };
+    });
+
+    // ✅ Sort: Live users on top
+    result.sort((a, b) => Number(b.isLive) - Number(a.isLive));
+
+    return result;
+  } catch (error) {
+    console.error("Error in getFollowedUsers:", error);
     return [];
   }
 };
+
