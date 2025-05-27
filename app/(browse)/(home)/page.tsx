@@ -15,9 +15,11 @@ export default function HomePage() {
 
       <div className="flex-1 overflow-y-auto px-4 pt-2">
         {activeTab === "Following" ? (
-          <Suspense fallback={<ResultsSkeleton />}>
-            <Results />
-          </Suspense>
+        {/* TEMP: remove suspense to see real error */}
+        {/* <Suspense fallback={<ResultsSkeleton />}> */}
+          <Results />
+        {/* </Suspense> */}
+
         ) : (
           <LiveReelsView />
         )}
