@@ -73,10 +73,13 @@ export const Chat = ({
       <ChatHeader />
       {variant === ChatVariant.CHAT && (
         <div className="flex flex-col flex-1 overflow-hidden">
-          <div className="flex-1 overflow-y-auto">
+          {/* Scrollable chat */}
+          <div className="flex-1 overflow-y-auto px-2 pt-2">
             <ChatList messages={reversedMessages} isHidden={isHidden} />
           </div>
-          <div className="border-t">
+        
+          {/* Fixed input at bottom */}
+          <div className="border-t bg-background px-2 pb-2 pt-1">
             <ChatForm
               onSubmit={onSubmit}
               value={value}
@@ -88,6 +91,7 @@ export const Chat = ({
             />
           </div>
         </div>
+
       )}
       {variant === ChatVariant.COMMUNITY && (
         <ChatCommunity
