@@ -22,11 +22,15 @@ export const Container = ({ children }: ContainerProps) => {
     }
   }, [matches, onCollapse, onExpand]);
 
-  return (
-    <div
-      className={cn("flex-1", collapsed ? "ml-[70px]" : "ml-[70px] lg:ml-60")}
-    >
-      {children}
-    </div>
-  );
+return (
+  <div
+    className={cn(
+      "flex-1",
+      matches ? "ml-0" : collapsed ? "ml-[70px]" : "ml-60"
+    )}
+  >
+    {children}
+  </div>
+);
+
 };
