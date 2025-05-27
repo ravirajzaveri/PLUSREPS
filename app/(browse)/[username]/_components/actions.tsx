@@ -8,6 +8,12 @@ import { onFollow, onUnfollow } from "@/actions/follow";
 import { Button } from "@/components/ui/button";
 import { SubscribeButton } from "./subscribe-button";
 import { BitsButton } from "./bits-button";
+import { clsx, ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 interface ActionsProps {
   isFollowing: boolean;
