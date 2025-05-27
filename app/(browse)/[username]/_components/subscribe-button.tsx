@@ -19,14 +19,31 @@ const badges = [
   { month: "9-Month", color: "bg-cyan-400" },
 ];
 
-export const SubscribeButton = ({ userId }: { userId: string }) => {
+interface SubscribeButtonProps {
+  userId: string;
+  compact?: boolean;
+}
+
+export const SubscribeButton = ({ userId, compact }: SubscribeButtonProps) => {
   const [open, setOpen] = useState(false);
 
   const handleSubscribe = () => {
-    // Placeholder — integrate Razorpay flow here
     alert("Subscribed with Razorpay for ₹110!");
     setOpen(false);
   };
+
+  if (compact) {
+    return (
+      <Button
+        variant="primary"
+        size="sm"
+        className="w-full text-xs px-2 py-1"
+        onClick={() => setOpen(true)}
+      >
+        Sub ₹110
+      </Button>
+    );
+  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
