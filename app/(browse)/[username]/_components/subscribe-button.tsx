@@ -33,16 +33,22 @@ export const SubscribeButton = ({ userId, compact }: SubscribeButtonProps) => {
   };
 
   if (compact) {
-    return (
-      <Button
-        variant="primary"
-        size="sm"
-        className="w-full text-xs px-2 py-1"
-        onClick={() => setOpen(true)}
-      >
-        Sub ₹110
-      </Button>
-    );
+      return (
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <Button
+              variant="primary"
+              size="sm"
+              className={`w-full ${compact ? "text-xs px-2 py-1" : ""}`}
+            >
+              {compact ? "Sub ₹110" : "Subscribe ₹110"}
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-md w-[90%] rounded-xl p-6 bg-background border">
+            {/* same content as before */}
+          </DialogContent>
+        </Dialog>
+      );
   }
 
   return (
