@@ -56,7 +56,7 @@ export const Actions = ({ isFollowing, userId }: ActionsProps) => {
       {/* Compact Row for Mobile */}
       <div className="flex justify-between gap-2 w-full text-sm">
         <Button
-          disabled={isPending || isHost}
+          disabled={isPending}
           onClick={toggleFollow}
           variant="ghost"
           size="icon"
