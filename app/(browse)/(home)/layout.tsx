@@ -9,7 +9,7 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
       </div>
 
       {/* Scrollable content */}
-      <main className="flex-1 overflow-y-auto pt-16">
+      <main className="flex-1 overflow-y-auto pt-24">
         {children}
       </main>
     </div>
