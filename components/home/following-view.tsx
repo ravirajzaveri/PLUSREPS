@@ -7,10 +7,11 @@ import { User } from "@prisma/client";
 
 interface StreamData {
   id: string;
+  username: string;
+  imageUrl: string;
   isLive: boolean;
   title: string;
   thumbnail: string | null;
-  user: User;
 }
 
 
@@ -56,8 +57,21 @@ export const FollowingView = () => {
       <h2 className="text-lg font-semibold mb-4">Your Followed Streams</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 px-2 sm:px-0">
         {data.map((stream) => (
-          <ResultCard key={stream.id} data={stream} />
+          <ResultCard
+            key={stream.id}
+            data={{
+              user: {
+                id: stream.id,
+                username: stream.username,
+                imageUrl: stream.imageUrl,
+              },
+              isLive: stream.isLive,
+              title: stream.title,
+              thumbnail: stream.thumbnail,
+            }}
+          />
         ))}
+
       </div>
     </div>
   );
