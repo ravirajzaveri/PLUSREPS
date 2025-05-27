@@ -24,7 +24,13 @@ export const FollowingView = () => {
       try {
         const res = await fetch("/api/following-streams"); // You'll need to implement this API
         const json = await res.json();
-        setData(json);
+        setData(
+  json.sort((a, b) => {
+    if (a.isLive === b.isLive) return 0;
+    return a.isLive ? -1 : 1; // live streams first
+  })
+);
+
       } catch (error) {
         console.error("Error fetching followed streams", error);
       } finally {
