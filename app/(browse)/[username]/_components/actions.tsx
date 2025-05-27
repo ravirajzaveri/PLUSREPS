@@ -50,6 +50,25 @@ export const Actions = ({ isFollowing, userId }: ActionsProps) => {
         .catch(() => toast.error("Something went wrong"));
     });
   };
+  const toggleFollow = () => {
+    if (isFollowing) {
+      startTransition(() => {
+        onUnfollow(userId)
+          .then((data) =>
+            toast.success(`Unfollowed ${data.following.username}`)
+          )
+          .catch(() => toast.error("Something went wrong"));
+      });
+    } else {
+      startTransition(() => {
+        onFollow(userId)
+          .then((data) =>
+            toast.success(`Now following ${data.following.username}`)
+          )
+          .catch(() => toast.error("Something went wrong"));
+      });
+    }
+  };
 
   return (
     <div className="flex flex-col gap-2">
