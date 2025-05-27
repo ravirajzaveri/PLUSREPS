@@ -1,4 +1,5 @@
 "use client";
+import { Heart } from "lucide-react";
 
 import { toast } from "sonner";
 import { useTransition } from "react";
