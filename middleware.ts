@@ -6,6 +6,7 @@ import { authMiddleware } from "@clerk/nextjs";
 export default authMiddleware({
   publicRoutes: [
     "/",
+    "/(browse)/(home)",       // ✅ explicitly allow your home tab
     "/api/webhooks(.*)",
     "/api/uploadthing",
     "/:username",
