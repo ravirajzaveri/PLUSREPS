@@ -23,8 +23,7 @@ interface ResultCardProps {
 export const ResultCard = ({ data }: ResultCardProps) => {
   return (
     <Link href={`/${data.user.username}`}>
-        <div className="h-full w-full space-y-2 sm:space-y-4">
-
+      <div className="h-full w-full space-y-2 sm:space-y-4">
         <Thumbnail
           src={data.thumbnail}
           fallback={data.user.imageUrl}
@@ -32,26 +31,28 @@ export const ResultCard = ({ data }: ResultCardProps) => {
           username={data.user.username}
         />
         <div className="flex gap-x-2 sm:gap-x-3 items-center">
-        <UserAvatar
-          username={data.user.username}
-          imageUrl={data.user.imageUrl}
-          isLive={data.isLive}
-        />
-        <div className="flex flex-col text-sm overflow-hidden">
-          <p className="truncate font-semibold text-sm sm:text-base leading-tight hover:text-blue-500">
-            {data.title}
-          </p>
-          <div className="flex items-center gap-2">
-            <p className="text-muted-foreground">{data.user.username}</p>
-            {data.isLive && (
-              <span className="text-red-500 text-xs font-bold animate-pulse">LIVE</span>
-            )}
+          <UserAvatar
+            username={data.user.username}
+            imageUrl={data.user.imageUrl}
+            isLive={data.isLive}
+          />
+          <div className="flex flex-col text-sm overflow-hidden">
+            <p className="truncate font-semibold text-sm sm:text-base leading-tight hover:text-blue-500">
+              {data.title}
+            </p>
+            <div className="flex items-center gap-2">
+              <p className="text-muted-foreground">{data.user.username}</p>
+              {data.isLive && (
+                <span className="text-red-500 text-xs font-bold animate-pulse">LIVE</span>
+              )}
+            </div>
           </div>
         </div>
       </div>
     </Link>
   );
 };
+
 
 export const ResultCardSkeleton = () => {
   return (
