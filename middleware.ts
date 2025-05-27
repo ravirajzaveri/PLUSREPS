@@ -6,17 +6,18 @@ import { authMiddleware } from "@clerk/nextjs";
 export default authMiddleware({
   publicRoutes: [
     "/",
-    "/(browse)/(home)",       // ✅ explicitly allow your home tab
-    "/(browse)/(home)/live",    // ✅ add this line just in case
-    "/(browse)/:username",   // ✅ Required if your stream route is inside /(browse) layout
-    "/:username",            // ✅ Optional fallback for top-level user routes
+    "/(browse)/home",
+    "/(browse)/home/:path*",  // ✅ match /home/live and any other subroutes
+    "/(browse)/:username",
+    "/:username",
     "/api/webhooks(.*)",
     "/api/uploadthing",
     "/search",
-    "/legal(.*)", // ← allow all legal pages
+    "/legal(.*)",
   ],
 });
 
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
+
