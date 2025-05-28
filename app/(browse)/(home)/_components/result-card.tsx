@@ -21,6 +21,9 @@ interface ResultCardProps {
 
 
 export const ResultCard = ({ data }: ResultCardProps) => {
+  if (data.isLive) {
+    console.log(`Live stream: ${data.user.username}`);
+  }
   return (
     <Link href={`/${data.user.username}`}>
       <div className="h-full w-full space-y-2 sm:space-y-4">
