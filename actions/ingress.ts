@@ -71,17 +71,26 @@ export const createIngress = async (ingressType: IngressInput) => {
   if (!ingress || !ingress.url || !ingress.streamKey) {
     throw new Error("Failed to create ingress");
   }
-
-  await db.stream.update({
+  await db.stream.upsert({
     where: { userId: self.id },
-    data: {
+    update: {
       ingressId: ingress.ingressId,
       serverUrl: ingress.url,
       streamKey: ingress.streamKey,
-      isLive: true, // 👈 ADD THIS
-      roomName: self.username, // or any readable room name
+      roomName: self.username,
+      isLive: true,
+    },
+    create: {
+      userId: self.id,
+      title: `${self.username}'s stream`,
+      ingressId: ingress.ingressId,
+      serverUrl: ingress.url,
+      streamKey: ingress.streamKey,
+      roomName: self.username,
+      isLive: true,
     },
   });
+
 
   revalidatePath(`/u/${self.username}/keys`);
   return ingress;
