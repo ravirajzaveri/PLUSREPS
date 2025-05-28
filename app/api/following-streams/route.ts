@@ -2,6 +2,9 @@ import { getSelf } from "@/lib/auth-service";
 import { db } from "@/lib/db";
 
 export async function GET() {
+  const { userId } = auth();
+  console.log("🧪 [FOLLOWING_STREAMS] userId:", userId);
+  
   try {
     const self = await getSelf();
 
