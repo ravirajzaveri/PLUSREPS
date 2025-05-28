@@ -18,17 +18,18 @@ import { revalidatePath } from "next/cache";
 const roomService = new RoomServiceClient(
   process.env.LIVEKIT_API_URL!,
   process.env.LIVEKIT_API_KEY!,
-  process.env.LIVEKIT_API_SECRET! 
+  process.env.LIVEKIT_API_SECRET!
 );
 
 const ingressClient = new IngressClient(process.env.LIVEKIT_API_URL!);
 
-export const resetIngresses = async (hostIdentity: string) => {
+// ✅ Now uses username instead of ID
+export const resetIngresses = async (roomName: string) => {
   const ingresses = await ingressClient.listIngress({
-    roomName: hostIdentity,
+    roomName,
   });
 
-  const rooms = await roomService.listRooms([hostIdentity]);
+  const rooms = await roomService.listRooms([roomName]);
 
   for (const room of rooms) {
     await roomService.deleteRoom(room.name);
@@ -44,7 +45,8 @@ export const resetIngresses = async (hostIdentity: string) => {
 export const createIngress = async (ingressType: IngressInput) => {
   const self = await getSelf();
 
-  await resetIngresses(self.id);
+  // ✅ Fix: pass username instead of id
+  await resetIngresses(self.username);
 
   const options: CreateIngressOptions = {
     name: self.username,
@@ -68,16 +70,17 @@ export const createIngress = async (ingressType: IngressInput) => {
 
   const ingress = await ingressClient.createIngress(ingressType, options);
 
-  if (!ingress || !ingress.url || !ingress.streamKey) {
+  if (!ingress?.url || !ingress?.streamKey) {
     throw new Error("Failed to create ingress");
   }
+
   await db.stream.upsert({
     where: { userId: self.id },
     update: {
       ingressId: ingress.ingressId,
       serverUrl: ingress.url,
       streamKey: ingress.streamKey,
-      roomName: self.username,
+      roomName: self.username, // ✅ stored for webhook match
       isLive: true,
     },
     create: {
@@ -90,7 +93,6 @@ export const createIngress = async (ingressType: IngressInput) => {
       isLive: true,
     },
   });
-
 
   revalidatePath(`/u/${self.username}/keys`);
   return ingress;
