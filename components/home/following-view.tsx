@@ -22,7 +22,9 @@ export const FollowingView = () => {
   useEffect(() => {
     const fetchStreams = async () => {
       try {
-        const res = await fetch("/api/following-streams"); // You'll need to implement this API
+        const res = await fetch("/api/following-streams", {
+          credentials: "include", // ✅ Send Clerk session cookies
+        });
         const json = await res.json();
         setData(
   json.sort((a: { isLive: boolean }, b: { isLive: boolean }) => {
