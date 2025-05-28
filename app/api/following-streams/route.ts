@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 export async function GET() {
   const { userId } = auth();
   console.log("🧪 [FOLLOWING_STREAMS] userId:", userId);
-  console.log("🔍 DB followings raw:", followings);
+
 
   try {
     const self = await getSelf();
@@ -18,7 +18,7 @@ export async function GET() {
         },
       },
     });
-
+    console.log("🔍 DB followings raw:", followings);
     const formatted = followings
       .map(f => ({
         id: f.following.id,
