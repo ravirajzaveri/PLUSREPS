@@ -22,49 +22,43 @@ export async function POST(req: Request) {
   try {
     event = receiver.receive(body, authorization);
     console.log("➡️ Event type:", event.event);
-    console.log("➡️ Room name:", event.room?.name);
+    console.log("➡️ Room name (username):", event.room?.name);
   } catch (error) {
     console.error("[WEBHOOK ERROR] Invalid signature:", error);
     return new Response("Invalid signature", { status: 400 });
   }
 
-const type = event.event;
-const room = event.room;
-const ingress = (event.event === "ingress_started" || event.event === "ingress_ended") ? (event as any).ingress : undefined;
+  const type = event.event;
+  const room = event.room;
+  const ingress = (type === "ingress_started" || type === "ingress_ended") ? (event as any).ingress : undefined;
 
+  // Use fallback to get username from ingress if missing
+  const username = room?.name || ingress?.roomName;
 
-// Use fallback to get room name from ingress if missing
-const userId = room?.name || ingress?.roomName;
+  if (!username) {
+    console.warn("❗ Missing username in webhook event");
+    return new Response("Missing username", { status: 400 });
+  }
 
-if (!userId) {
-  console.warn("❗ Missing room name in webhook event");
-  return new Response("Missing room name", { status: 400 });
-}
-console.log("➡️ Room name:", userId);
-
+  console.log("➡️ Acting on username:", username);
 
   try {
     if (type === "room_started") {
-      console.log(`✅ Marking ${userId} as live`);
+      console.log(`✅ Marking ${username} as live`);
       await db.stream.updateMany({
-        where: { roomName: username },
+        where: { user: { username } },
         data: { isLive: true },
       });
     }
 
     if (type === "room_finished") {
-      console.log(`⛔ Marking ${userId} as offline`);
+      console.log(`⛔ Marking ${username} as offline`);
       await db.stream.updateMany({
-        where: { roomName: username },
+        where: { user: { username } },
         data: { isLive: false },
       });
     }
-// TEMP DEBUG: ensure field exists
-/*const streams = await db.stream.findMany({
-  select: { id: true, roomName: true },
-});
-console.log("🔧 Stream records (checking roomName field):", streams);
-*/
+
     return new Response("OK", { status: 200 });
   } catch (error) {
     console.error("[WEBHOOK DB ERROR]", error);
