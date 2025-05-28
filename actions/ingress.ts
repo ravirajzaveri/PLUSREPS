@@ -48,7 +48,7 @@ export const createIngress = async (ingressType: IngressInput) => {
 
   const options: CreateIngressOptions = {
     name: self.username,
-    roomName: self.id,
+    roomName: self.username,
     participantName: self.username,
     participantIdentity: self.id,
   };
@@ -79,6 +79,7 @@ export const createIngress = async (ingressType: IngressInput) => {
       serverUrl: ingress.url,
       streamKey: ingress.streamKey,
       isLive: true, // 👈 ADD THIS
+      roomName: self.username, // or any readable room name
     },
   });
 
