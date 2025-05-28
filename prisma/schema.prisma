@@ -70,6 +70,7 @@ model Stream {
   ingressId           String?  @unique
   serverUrl           String?
   streamKey           String?
+  roomName  String?  @unique // ✅ add this
   isLive              Boolean  @default(false)
   isChatEnabled       Boolean  @default(true)
   isChatDelayed       Boolean  @default(false)
