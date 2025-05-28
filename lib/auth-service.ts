@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 
 export const getSelf = async () => {
   const { userId } = auth(); // ✅ works in both RSC & API routes
-
+  console.log("🧪 [getSelf] userId:", userId); // ✅ Add this line
   if (!userId) {
     throw new Error("Unauthorized");
   }
