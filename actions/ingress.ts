@@ -78,6 +78,7 @@ export const createIngress = async (ingressType: IngressInput) => {
       ingressId: ingress.ingressId,
       serverUrl: ingress.url,
       streamKey: ingress.streamKey,
+      isLive: true, // 👈 ADD THIS
     },
   });
 
