@@ -10,6 +10,7 @@ export default authMiddleware({
     "/(browse)/home/:path*",  // ✅ match /home/live and any other subroutes
     "/(browse)/:username",
     "/:username",
+    "/api/following-streams",
     "/api/webhooks(.*)",
     "/api/uploadthing",
     "/search",
