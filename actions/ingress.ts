@@ -43,7 +43,9 @@ export const resetIngresses = async (roomName: string) => {
 };
 
 export const createIngress = async (ingressType: IngressInput) => {
-  const self = await getSelf();
+await db.stream.deleteMany({});
+  
+const self = await getSelf();
 
   // ✅ Fix: pass username instead of id
   await resetIngresses(self.username);
