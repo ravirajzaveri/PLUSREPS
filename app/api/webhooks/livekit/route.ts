@@ -28,7 +28,10 @@ export async function POST(req: Request) {
     return new Response("Invalid signature", { status: 400 });
   }
 
-const { event: type, room, ingress } = event;
+const type = event.event;
+const room = event.room;
+const ingress = (event.event === "ingress_started" || event.event === "ingress_ended") ? (event as any).ingress : undefined;
+
 
 // Use fallback to get room name from ingress if missing
 const userId = room?.name || ingress?.roomName;
