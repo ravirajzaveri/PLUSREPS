@@ -28,13 +28,17 @@ export async function POST(req: Request) {
     return new Response("Invalid signature", { status: 400 });
   }
 
-  const { event: type, room } = event;
-  const userId = room?.name;
+const { event: type, room, ingress } = event;
 
-  if (!userId) {
-    console.warn("❗ Missing room name in webhook event");
-    return new Response("Missing room name", { status: 400 });
-  }
+// Use fallback to get room name from ingress if missing
+const userId = room?.name || ingress?.roomName;
+
+if (!userId) {
+  console.warn("❗ Missing room name in webhook event");
+  return new Response("Missing room name", { status: 400 });
+}
+console.log("➡️ Room name:", userId);
+
 
   try {
     if (type === "room_started") {
