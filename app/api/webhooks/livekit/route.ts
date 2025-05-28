@@ -52,6 +52,11 @@ export async function POST(req: Request) {
         data: { isLive: false },
       });
     }
+// TEMP DEBUG: ensure field exists
+const streams = await db.stream.findMany({
+  select: { id: true, roomName: true },
+});
+console.log("🔧 Stream records (checking roomName field):", streams);
 
     return new Response("OK", { status: 200 });
   } catch (error) {
