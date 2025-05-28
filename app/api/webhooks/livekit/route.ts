@@ -8,6 +8,8 @@ const receiver = new WebhookReceiver(
 );
 
 export async function POST(req: Request) {
+  console.log("🎯 Webhook called");
+
   const body = await req.text();
   const headerPayload = headers();
   const authorization = headerPayload.get("Authorization");
@@ -19,29 +21,41 @@ export async function POST(req: Request) {
   let event;
   try {
     event = receiver.receive(body, authorization);
+    console.log("➡️ Event type:", event.event);
+    console.log("➡️ Room name:", event.room?.name);
   } catch (error) {
-    console.error("[LIVEKIT_WEBHOOK] Invalid signature:", error);
+    console.error("[WEBHOOK ERROR] Invalid signature:", error);
     return new Response("Invalid signature", { status: 400 });
   }
 
   const { event: type, room } = event;
   const userId = room?.name;
 
-  if (!userId) return new Response("Missing room name", { status: 400 });
-
-  if (type === "room_started") {
-    await db.stream.updateMany({
-      where: { userId },
-      data: { isLive: true },
-    });
+  if (!userId) {
+    console.warn("❗ Missing room name in webhook event");
+    return new Response("Missing room name", { status: 400 });
   }
 
-  if (type === "room_finished") {
-    await db.stream.updateMany({
-      where: { userId },
-      data: { isLive: false },
-    });
-  }
+  try {
+    if (type === "room_started") {
+      console.log(`✅ Marking ${userId} as live`);
+      await db.stream.updateMany({
+        where: { userId },
+        data: { isLive: true },
+      });
+    }
 
-  return new Response("OK", { status: 200 });
+    if (type === "room_finished") {
+      console.log(`⛔ Marking ${userId} as offline`);
+      await db.stream.updateMany({
+        where: { userId },
+        data: { isLive: false },
+      });
+    }
+
+    return new Response("OK", { status: 200 });
+  } catch (error) {
+    console.error("[WEBHOOK DB ERROR]", error);
+    return new Response("Internal error", { status: 500 });
+  }
 }
