@@ -25,6 +25,8 @@ export async function GET() {
       }))
       .sort((a, b) => Number(b.isLive) - Number(a.isLive)); // live first
 
+    console.log("Raw stream data:", formatted); // ✅ this should be after .sort
+
     return new Response(JSON.stringify(formatted), { status: 200 });
   } catch (error) {
     console.error("[FOLLOWING_STREAMS]", error);
