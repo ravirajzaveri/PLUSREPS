@@ -32,7 +32,6 @@ export async function POST(req: Request) {
   const room = event.room;
   const ingress = (type === "ingress_started" || type === "ingress_ended") ? (event as any).ingress : undefined;
 
-  // Use fallback to get username from ingress if missing
   const username = room?.name || ingress?.roomName;
 
   if (!username) {
@@ -40,24 +39,25 @@ export async function POST(req: Request) {
     return new Response("Missing username", { status: 400 });
   }
 
-  console.log("➡️ Acting on username:", username);
-
   try {
-    if (type === "room_started") {
-      console.log(`✅ Marking ${username} as live`);
-      await db.stream.updateMany({
-        where: { user: { username } },
-        data: { isLive: true },
-      });
+    const user = await db.user.findUnique({
+      where: { username },
+      select: { id: true },
+    });
+
+    if (!user) {
+      console.warn(`❗ No user found with username: ${username}`);
+      return new Response("User not found", { status: 404 });
     }
 
-    if (type === "room_finished") {
-      console.log(`⛔ Marking ${username} as offline`);
-      await db.stream.updateMany({
-        where: { user: { username } },
-        data: { isLive: false },
-      });
-    }
+    const updateData = { isLive: type === "room_started" };
+
+    console.log(`🔄 Updating stream for user ${username} to isLive: ${updateData.isLive}`);
+
+    await db.stream.update({
+      where: { userId: user.id },
+      data: updateData,
+    });
 
     return new Response("OK", { status: 200 });
   } catch (error) {
