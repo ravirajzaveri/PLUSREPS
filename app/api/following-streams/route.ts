@@ -1,5 +1,6 @@
 import { getSelf } from "@/lib/auth-service";
 import { db } from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
 
 export async function GET() {
   const { userId } = auth();
