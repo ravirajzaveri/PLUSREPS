@@ -47,7 +47,7 @@ console.log("➡️ Room name:", userId);
     if (type === "room_started") {
       console.log(`✅ Marking ${userId} as live`);
       await db.stream.updateMany({
-        where: { roomName: userId },
+        where: { roomName: username },
         data: { isLive: true },
       });
     }
@@ -55,7 +55,7 @@ console.log("➡️ Room name:", userId);
     if (type === "room_finished") {
       console.log(`⛔ Marking ${userId} as offline`);
       await db.stream.updateMany({
-        where: { roomName: userId },
+        where: { roomName: username },
         data: { isLive: false },
       });
     }
