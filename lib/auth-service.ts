@@ -1,16 +1,15 @@
-import { currentUser } from "@clerk/nextjs";
-
+import { auth } from "@clerk/nextjs/server"; // ✅ WORKS in app/api routes
 import { db } from "@/lib/db";
 
 export const getSelf = async () => {
-  const self = await currentUser();
+  const { userId } = auth(); // ✅ works in both RSC & API routes
 
-  if (!self) {
+  if (!userId) {
     throw new Error("Unauthorized");
   }
 
   const user = await db.user.findUnique({
-    where: { externalUserId: self.id },
+    where: { externalUserId: userId },
   });
 
   if (!user) {
@@ -21,9 +20,9 @@ export const getSelf = async () => {
 };
 
 export const getSelfByUsername = async (username: string) => {
-  const self = await currentUser();
+  const { userId } = auth(); // ✅ same fix here
 
-  if (!self) {
+  if (!userId) {
     throw new Error("Unauthorized");
   }
 
@@ -35,9 +34,10 @@ export const getSelfByUsername = async (username: string) => {
     throw new Error("User not found");
   }
 
-  if (self.id !== user.externalUserId) {
+  if (user.externalUserId !== userId) {
     throw new Error("Unauthorized");
   }
 
   return user;
 };
+
