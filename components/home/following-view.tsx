@@ -26,6 +26,8 @@ export const FollowingView = () => {
           credentials: "include", // ✅ Send Clerk session cookies
         });
         const json = await res.json();
+        console.log("📦 Fetched streams from API:", json);
+
         setData(
   json.sort((a: { isLive: boolean }, b: { isLive: boolean }) => {
     if (a.isLive === b.isLive) return 0;
