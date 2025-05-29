@@ -64,26 +64,25 @@ export const FollowingView = () => {
     return null;
   }
 
-  const liveFollowings = data.filter(f => f.following.stream?.isLive);
-
-  if (!liveFollowings.length) {
-    console.log("ℹ️ [Client] All followed users are offline.");
+  if (!data.length) {
+    console.log("⚠️ [Client] No followed users at all.");
     return null;
   }
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
-      {liveFollowings.map((follow) => (
+      {data.map((follow) => (
         <ResultCard
           key={follow.following.id}
           data={{
             user: follow.following,
-            isLive: true,
-            title: follow.following.stream?.title || "Untitled Stream",
+            isLive: follow.following.stream?.isLive ?? false, // ✅ may be false or null
+            title: follow.following.stream?.title || "Offline",
             thumbnail: follow.following.stream?.thumbnail ?? null,
           }}
         />
       ))}
     </div>
   );
+
 };
