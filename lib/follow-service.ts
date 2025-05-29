@@ -1,5 +1,7 @@
 import { db } from "@/lib/db";
 import { getSelf } from "@/lib/auth-service";
+import { getSelfFromAuth } from "./auth-api";
+
 
 export const isFollowingUser = async (id: string) => {
   try {
@@ -111,6 +113,45 @@ export const getFollowedUsers = async () => {
     return followedUsers;
   } catch (err) {
     console.warn("⚠️ [getFollowedUsers] Error or unauthorized:", err);
+    return [];
+  }
+};
+
+export const getFollowedUsersFromAPI = async () => {
+  try {
+    const self = await getSelfFromAuth();
+    console.log("🔍 [API follow-service] self.id:", self.id);
+
+    const followedUsers = await db.follow.findMany({
+      where: {
+        followerId: self.id,
+        following: {
+          blocking: {
+            none: {
+              blockerId: self.id,
+            },
+          },
+        },
+      },
+      include: {
+        following: {
+          include: {
+            stream: {
+              select: {
+                isLive: true,
+                title: true,
+                thumbnail: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    console.log("✅ [API follow-service] Found:", followedUsers.length);
+    return followedUsers;
+  } catch (err) {
+    console.warn("⚠️ [API follow-service] Error:", err);
     return [];
   }
 };
