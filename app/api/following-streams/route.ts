@@ -1,12 +1,16 @@
-import { getSelf } from "@/lib/auth-service";
+import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 
 export async function GET() {
   try {
-    const self = await getSelf();
+    const { userId } = auth();
+
+    if (!userId) {
+      return new Response("Unauthorized", { status: 401 });
+    }
 
     const followings = await db.follow.findMany({
-      where: { followerId: self.id },
+      where: { followerId: userId },
       include: {
         following: {
           include: { stream: true },
@@ -23,9 +27,9 @@ export async function GET() {
         title: f.following.stream?.title ?? "Offline",
         thumbnail: f.following.stream?.thumbnail ?? null,
       }))
-      .sort((a, b) => Number(b.isLive) - Number(a.isLive)); // live first
+      .sort((a, b) => Number(b.isLive) - Number(a.isLive));
 
-    console.log("Raw stream data:", formatted); // ✅ this should be after .sort
+    console.log("Raw stream data:", formatted);
 
     return new Response(JSON.stringify(formatted), { status: 200 });
   } catch (error) {
