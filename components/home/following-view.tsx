@@ -1,18 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ResultCard, ResultCardSkeleton } from "@/app/(browse)/(home)/_components/result-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { User } from "@prisma/client";
+import { Follow, User } from "@prisma/client";
+import { Following } from "@/app/(browse)/_components/sidebar/following";
 
-interface StreamData {
-  id: string;
-  isLive: boolean;
-  title: string;
-  thumbnail: string | null;
-  user: User;
+interface StreamData extends Follow {
+  following: User & {
+    stream: { isLive: boolean } | null;
+  };
 }
-
 
 export const FollowingView = () => {
   const [data, setData] = useState<StreamData[]>([]);
@@ -21,7 +18,7 @@ export const FollowingView = () => {
   useEffect(() => {
     const fetchStreams = async () => {
       try {
-        const res = await fetch("/api/following-streams"); // You'll need to implement this API
+        const res = await fetch("/api/following-streams");
         const json = await res.json();
         setData(json);
       } catch (error) {
@@ -38,27 +35,27 @@ export const FollowingView = () => {
     return (
       <div>
         <Skeleton className="h-8 w-[290px] mb-4" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+        <ul className="space-y-2 px-2">
           {[...Array(4)].map((_, i) => (
-            <ResultCardSkeleton key={i} />
+            <Skeleton key={i} className="h-12 w-full rounded-md" />
           ))}
-        </div>
+        </ul>
       </div>
     );
   }
 
   if (data.length === 0) {
-    return <div className="text-muted-foreground text-sm">No followed streams are live.</div>;
+    return (
+      <div className="text-muted-foreground text-sm">
+        You aren’t following anyone yet.
+      </div>
+    );
   }
 
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-4">Your Followed Streams</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 sm:gap-4 px-2 sm:px-0">
-        {data.map((stream) => (
-          <ResultCard key={stream.id} data={stream} />
-        ))}
-      </div>
+      <h2 className="text-lg font-semibold mb-4 px-2">Your Followed Streams</h2>
+      <Following data={data} />
     </div>
   );
 };
