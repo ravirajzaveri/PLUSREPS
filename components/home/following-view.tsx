@@ -78,7 +78,7 @@ export const FollowingView = () => {
             user: follow.following,
             isLive: true,
             title: follow.following.stream?.title || "Untitled Stream",
-            thumbnail: follow.following.stream?.thumbnail,
+            thumbnail: follow.following.stream?.thumbnail ?? null, // ✅ FIXED
           }}
         />
       ))}
