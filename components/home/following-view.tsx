@@ -25,7 +25,10 @@ export const FollowingView = () => {
     const fetchStreams = async () => {
       console.log("Fetching /api/following-streams...");
       try {
-        const res = await fetch("/api/following-streams");
+        const res = await fetch("/api/following-streams", {
+          credentials: "include", // ✅ This ensures cookies (i.e. auth) are sent
+        });
+
 
         if (!res.ok) {
           throw new Error(`Failed with status ${res.status}`);
