@@ -20,17 +20,16 @@ export const FollowingView = () => {
       try {
         const res = await fetch("/api/following-streams");
         const json = await res.json();
-        console.log("Data INgress:", json);
+        console.log("Fetched stream data:", json); // << check this
         setData(json);
       } catch (error) {
         console.error("Error fetching followed streams", error);
-      } finally {
-        setLoading(false);
       }
     };
-
+  
     fetchStreams();
   }, []);
+
 
   if (loading) {
     return (
