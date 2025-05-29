@@ -23,13 +23,12 @@ const roomService = new RoomServiceClient(
 
 const ingressClient = new IngressClient(process.env.LIVEKIT_API_URL!);
 
-// ✅ Now uses username instead of ID
-export const resetIngresses = async (roomName: string) => {
+export const resetIngresses = async (hostIdentity: string) => {
   const ingresses = await ingressClient.listIngress({
-    roomName,
+    roomName: hostIdentity,
   });
 
-  const rooms = await roomService.listRooms([roomName]);
+  const rooms = await roomService.listRooms([hostIdentity]);
 
   for (const room of rooms) {
     await roomService.deleteRoom(room.name);
@@ -43,16 +42,13 @@ export const resetIngresses = async (roomName: string) => {
 };
 
 export const createIngress = async (ingressType: IngressInput) => {
-await db.stream.deleteMany({});
-  
-const self = await getSelf();
+  const self = await getSelf();
 
-  // ✅ Fix: pass username instead of id
-  await resetIngresses(self.username);
+  await resetIngresses(self.id);
 
   const options: CreateIngressOptions = {
     name: self.username,
-    roomName: self.username,
+    roomName: self.id,
     participantName: self.username,
     participantIdentity: self.id,
   };
@@ -72,27 +68,17 @@ const self = await getSelf();
 
   const ingress = await ingressClient.createIngress(ingressType, options);
 
-  if (!ingress?.url || !ingress?.streamKey) {
+  if (!ingress || !ingress.url || !ingress.streamKey) {
     throw new Error("Failed to create ingress");
   }
 
-  await db.stream.upsert({
+  await db.stream.update({
     where: { userId: self.id },
-    update: {
+    data: {
       ingressId: ingress.ingressId,
       serverUrl: ingress.url,
       streamKey: ingress.streamKey,
-      roomName: self.username, // ✅ stored for webhook match
-      isLive: true,
-    },
-    create: {
-      userId: self.id,
-      title: `${self.username}'s stream`,
-      ingressId: ingress.ingressId,
-      serverUrl: ingress.url,
-      streamKey: ingress.streamKey,
-      roomName: self.username,
-      isLive: true,
+      isLive: true, // 👈 ADD THIS
     },
   });
 
