@@ -4,7 +4,7 @@
 
 Welcome to the Fullstack Twitch Clone repository! This project utilizes Next.js 14, Livestreaming capabilities, React, Prisma, Stripe, Tailwind, and MongoDB to create a comprehensive Twitch-like streaming platform.
 
-## Key Features
+## Key Features##
 
 ### 📡 Streaming using RTMP / WHIP protocols
 
