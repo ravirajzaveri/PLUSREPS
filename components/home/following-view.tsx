@@ -43,7 +43,7 @@ export const FollowingView = () => {
       </div>
     );
   }
-
+  console.log("my data:",data);
   if (data.length === 0) {
     return (
       <div className="text-muted-foreground text-sm">
