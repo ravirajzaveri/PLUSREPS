@@ -14,7 +14,7 @@ interface StreamData extends Follow {
 export const FollowingView = () => {
   const [data, setData] = useState<StreamData[]>([]);
   const [loading, setLoading] = useState(true);
-
+  console.log("Data INgress:", data);
   useEffect(() => {
     const fetchStreams = async () => {
       try {
@@ -43,8 +43,9 @@ export const FollowingView = () => {
       </div>
     );
   }
-  console.log("my data:",data);
+  
   if (data.length === 0) {
+    console.log("NO my data:",data);
     return (
       <div className="text-muted-foreground text-sm">
         You aren’t following anyone yet.
@@ -53,6 +54,7 @@ export const FollowingView = () => {
   }
 
   return (
+    console.log("GOT my data:",data);
     <div>
       <h2 className="text-lg font-semibold mb-4 px-2">Your Followed Streams</h2>
       <Following data={data} />
