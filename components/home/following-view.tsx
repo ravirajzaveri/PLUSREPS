@@ -51,10 +51,12 @@ export const FollowingView = () => {
   if (loading) {
     console.log("🔄 [Client] Loading...");
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
-        {[...Array(6)].map((_, i) => (
-          <ResultCardSkeleton key={i} />
-        ))}
+      <div className="px-4 sm:px-6 md:px-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
+          {[...Array(6)].map((_, i) => (
+            <ResultCardSkeleton key={i} />
+          ))}
+        </div>
       </div>
     );
   }
@@ -70,18 +72,20 @@ export const FollowingView = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
-      {data.map((follow) => (
-        <ResultCard
-          key={follow.following.id}
-          data={{
-            user: follow.following,
-            isLive: follow.following.stream?.isLive ?? false, // ✅ may be false or null
-            title: follow.following.stream?.title || "Offline",
-            thumbnail: follow.following.stream?.thumbnail ?? null,
-          }}
-        />
-      ))}
+    <div className="px-4 sm:px-6 md:px-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
+        {data.map((follow) => (
+          <ResultCard
+            key={follow.following.id}
+            data={{
+              user: follow.following,
+              isLive: follow.following.stream?.isLive ?? false, // ✅ may be false or null
+              title: follow.following.stream?.title || "Offline",
+              thumbnail: follow.following.stream?.thumbnail ?? null,
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 
