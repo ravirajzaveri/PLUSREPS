@@ -7,7 +7,7 @@ import { VariantToggle } from "./variant-toggle";
 
 export const ChatHeader = () => {
   return (
-    <div className="sticky top-24 z-10 bg-background border-b p-3">
+    <div className="sticky top-20 z-10 bg-background border-b p-3">
       {/* Toggle button on desktop */}
       <div className="absolute left-2 top-2 hidden lg:block z-20">
         <ChatToggle />
