@@ -33,7 +33,8 @@ export const ChatForm = ({
   const [isDelayBlocked, setIsDelayBlocked] = useState(false);
 
   const isFollowersOnlyAndNotFollowing = isFollowersOnly && !isFollowing;
-  const isDisabled = isHidden || isDelayBlocked || isFollowersOnlyAndNotFollowing;
+  const isDisabled =
+    isHidden || isDelayBlocked || isFollowersOnlyAndNotFollowing;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,13 +58,19 @@ export const ChatForm = ({
       onSubmit={handleSubmit}
       className={cn("flex w-full items-center gap-2", isDisabled && "opacity-60")}
     >
-      <ChatInfo isDelayed={isDelayed} isFollowersOnly={isFollowersOnly} />
+      <ChatInfo
+        isDelayed={isDelayed}
+        isFollowersOnly={isFollowersOnly}
+      />
       <Input
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={isDisabled}
         placeholder="Send a message..."
-        className={cn("text-base lg:text-sm flex-1 px-3 py-2 rounded-md", inputClass)}
+        className={cn(
+          "text-base lg:text-sm flex-1 px-3 py-2 rounded-md",
+          inputClass
+        )}
         inputMode="text"
         autoComplete="off"
       />
