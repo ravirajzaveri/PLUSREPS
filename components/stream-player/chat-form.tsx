@@ -74,7 +74,7 @@ export const ChatForm = ({
         className={cn("rounded-md", buttonClass)}
         disabled={isDisabled}
       >
-        Chat
+        Send
       </Button>
     </form>
   );
