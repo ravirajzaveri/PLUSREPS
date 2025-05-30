@@ -50,9 +50,10 @@ export const Chat = ({
     if (matches) onExpand();
   }, [matches, onExpand]);
 
-  const reversedMessages = useMemo(() => {
-    return messages.sort((a, b) => b.timestamp - a.timestamp);
-  }, [messages]);
+  const reversedMessages = useMemo(
+    () => messages.sort((a, b) => b.timestamp - a.timestamp),
+    [messages]
+  );
 
   const onSubmit = () => {
     if (!send) return;
@@ -60,21 +61,21 @@ export const Chat = ({
     setValue("");
   };
 
-  const onChange = (value: string) => setValue(value);
+  const onChange = (val: string) => setValue(val);
 
   return (
     <div className="flex flex-col h-full bg-background">
       <ChatHeader />
 
       {variant === ChatVariant.CHAT && (
-        <div className="flex flex-col h-full overflow-hidden">
-          {/* Scrollable chat messages */}
-          <div className="flex-1 overflow-y-auto px-2 pt-2">
+        <div className="flex flex-col h-full">
+          {/* Scrollable list with min-h-0 so flex-1 shrinks properly */}
+          <div className="flex-1 min-h-0 overflow-y-auto px-2 pt-2">
             <ChatList messages={reversedMessages} isHidden={isHidden} />
           </div>
 
-          {/* Pinned chat input */}
-          <div className="sticky bottom-0 z-10 bg-background border-t px-3 py-2">
+          {/* Non-scrolling bottom input */}
+          <div className="flex-shrink-0 border-t bg-background px-3 py-2">
             <ChatForm
               onSubmit={onSubmit}
               value={value}
@@ -102,13 +103,11 @@ export const Chat = ({
 export const ChatSkeleton = () => (
   <div className="flex flex-col h-full border-l border-b bg-background">
     <ChatHeaderSkeleton />
-    <div className="flex-1 overflow-y-auto">
+    <div className="flex-1 min-h-0 overflow-y-auto">
       <ChatListSkeleton />
     </div>
-    <div className="border-t px-3 py-2">
+    <div className="flex-shrink-0 border-t px-3 py-2">
       <ChatFormSkeleton />
     </div>
   </div>
 );
-
-
