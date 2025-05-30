@@ -76,8 +76,10 @@ export const Chat = ({
       <div className="flex-1 overflow-y-auto px-2 pt-2">
         <ChatList messages={reversedMessages} isHidden={isHidden} />
       </div>
-      <div className="border-t bg-background px-2 pb-2 pt-1">
+        <div className="border-t bg-background px-3 py-2 flex items-center gap-2">
         <ChatForm
+          inputClass="flex-1 text-base px-3 py-2"
+          buttonClass="px-4 py-2"
           onSubmit={onSubmit}
           value={value}
           onChange={onChange}
