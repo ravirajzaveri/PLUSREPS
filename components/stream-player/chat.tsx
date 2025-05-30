@@ -72,8 +72,8 @@ export const Chat = ({
           <div className="flex-1 min-h-0 overflow-y-auto px-2 pt-2">
             <ChatList messages={reversed} isHidden={isHidden} />
           </div>
-          {/* input */}
-          <div className="flex-shrink-0 border-t bg-background px-3 py-2">
+          {/* input py-2 to py-10*/}
+          <div className="flex-shrink-0 border-t bg-background px-3 py-20">
             <ChatForm
               onSubmit={onSubmit}
               value={value}
