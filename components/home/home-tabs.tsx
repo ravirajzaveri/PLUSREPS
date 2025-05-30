@@ -9,7 +9,7 @@ export const HomeTabs = ({
 }: {
   onTabChange: (tab: string) => void;
 }) => {
-  const [activeTab, setActiveTab] = useState("Following");
+  const [activeTab, setActiveTab] = useState("Live");
 
   const handleClick = (tab: string) => {
     setActiveTab(tab);
