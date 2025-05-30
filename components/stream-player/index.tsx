@@ -12,24 +12,8 @@ import { Chat, ChatSkeleton } from "./chat";
 import { Video, VideoSkeleton } from "./video";
 import { Header, HeaderSkeleton } from "./header";
 
-type CustomStream = {
-  id: string;
-  isChatEnabled: boolean;
-  isChatDelayed: boolean;
-  isChatFollowersOnly: boolean;
-  isLive: boolean;
-  thumbnail: string | null;
-  title: string;
-};
-
-type CustomUser = {
-  id: string;
-  username: string;
-  bio: string | null;
-  stream: CustomStream | null;
-  imageUrl: string;
-  _count: { followedBy: number };
-};
+type CustomStream = { /* … */ };
+type CustomUser   = { /* … */ };
 
 interface StreamPlayerProps {
   user: CustomUser;
@@ -43,7 +27,7 @@ export const StreamPlayer = ({
   isFollowing,
 }: StreamPlayerProps) => {
   const { token, name, identity } = useViewerToken(user.id);
-  const { collapsed } = useChatSidebar((state) => state);
+  const { collapsed } = useChatSidebar((s) => s);
 
   if (!token || !name || !identity) {
     return <StreamPlayerSkeleton />;
@@ -52,22 +36,25 @@ export const StreamPlayer = ({
   return (
     <>
       {collapsed && (
-        <div className="hidden lg:block fixed top-[100px] right-2 z-50">
+        <div className="hidden lg:block fixed top-[100px] right-4 z-50">
           <ChatToggle />
         </div>
       )}
 
+      {/* full-height flex container */}
       <LiveKitRoom
         token={token}
         serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_WS_URL!}
-        className="h-[100dvh] w-full"
+        className="flex flex-col h-screen w-full"
       >
-        {/* ✅ Mobile */}
-        <div className="lg:hidden flex flex-col h-full overflow-hidden">
-          <div className="shrink-0">
+        {/* ─── Mobile ─── */}
+        <div className="lg:hidden flex flex-col flex-1 overflow-hidden">
+          {/* video */}
+          <div className="flex-shrink-0">
             <Video hostName={user.username} hostIdentity={user.id} />
           </div>
-          <div className="px-3 py-2">
+          {/* header */}
+          <div className="flex-shrink-0 px-3 py-2">
             <Header
               hostName={user.username}
               hostIdentity={user.id}
@@ -77,6 +64,7 @@ export const StreamPlayer = ({
               name={stream.title}
             />
           </div>
+          {/* chat */}
           <div className="flex-1 overflow-hidden flex flex-col">
             <Chat
               viewerName={name}
@@ -90,34 +78,50 @@ export const StreamPlayer = ({
           </div>
         </div>
 
-        {/* ✅ Desktop */}
-        <div className="hidden lg:grid lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 w-full h-[100dvh] overflow-hidden">
-          <div className="col-span-1 lg:col-span-2 xl:col-span-2 2xl:col-span-5 flex flex-col overflow-y-auto min-h-[100dvh] pb-20">
-            <Video hostName={user.username} hostIdentity={user.id} />
-            <Header
-              hostName={user.username}
-              hostIdentity={user.id}
-              viewerIdentity={identity}
-              imageUrl={user.imageUrl}
-              isFollowing={isFollowing}
-              name={stream.title}
-            />
-            <InfoCard
-              hostIdentity={user.id}
-              viewerIdentity={identity}
-              name={stream.title}
-              thumbnailUrl={stream.thumbnail}
-            />
-            <AboutCard
-              hostName={user.username}
-              hostIdentity={user.id}
-              viewerIdentity={identity}
-              bio={user.bio}
-              followedByCount={user._count.followedBy}
-            />
+        {/* ─── Desktop ─── */}
+        <div className="hidden lg:flex flex-1 overflow-hidden">
+          {/* Left column: video + info */}
+          <div className="flex flex-col flex-1 overflow-hidden">
+            {/* video */}
+            <div className="flex-shrink-0">
+              <Video hostName={user.username} hostIdentity={user.id} />
+            </div>
+            {/* header */}
+            <div className="flex-shrink-0">
+              <Header
+                hostName={user.username}
+                hostIdentity={user.id}
+                viewerIdentity={identity}
+                imageUrl={user.imageUrl}
+                isFollowing={isFollowing}
+                name={stream.title}
+              />
+            </div>
+            {/* scrollable info */}
+            <div className="flex-1 overflow-y-auto px-4 py-2 space-y-4">
+              <InfoCard
+                hostIdentity={user.id}
+                viewerIdentity={identity}
+                name={stream.title}
+                thumbnailUrl={stream.thumbnail}
+              />
+              <AboutCard
+                hostName={user.username}
+                hostIdentity={user.id}
+                viewerIdentity={identity}
+                bio={user.bio}
+                followedByCount={user._count.followedBy}
+              />
+            </div>
           </div>
 
-          <div className={cn("col-span-1 bg-background flex flex-col h-[100dvh]", collapsed && "hidden")}>
+          {/* Right column: chat */}
+          <div
+            className={cn(
+              "w-full max-w-xs border-l bg-background flex flex-col",
+              collapsed && "hidden"
+            )}
+          >
             <Chat
               viewerName={name}
               hostName={user.username}
@@ -134,16 +138,15 @@ export const StreamPlayer = ({
   );
 };
 
-export const StreamPlayerSkeleton = () => {
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-6 h-full">
-      <div className="space-y-4 col-span-1 lg:col-span-2 xl:col-span-2 2xl:col-span-5 overflow-y-auto hidden-scrollbar pb-10">
-        <VideoSkeleton />
-        <HeaderSkeleton />
-      </div>
-      <div className="col-span-1 bg-background">
-        <ChatSkeleton />
-      </div>
+export const StreamPlayerSkeleton = () => (
+  <div className="grid grid-cols-1 lg:grid-cols-3 h-full">
+    <div className="col-span-2 space-y-4 overflow-y-auto p-4">
+      <VideoSkeleton />
+      <HeaderSkeleton />
     </div>
-  );
-};
+    <div className="col-span-1 bg-background">
+      <ChatSkeleton />
+    </div>
+  </div>
+);
+
