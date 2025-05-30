@@ -128,12 +128,12 @@ export const StreamPlayer = ({
           </div>
 
           {/* Right: Chat */}
-          <div
-            className={cn(
-              "w-full max-w-xs border-l bg-background flex flex-col",
-              collapsed && "hidden"
-            )}
-          >
+            <div
+              className={cn(
+                "w-full max-w-xs border-l bg-background flex flex-col h-full overflow-hidden",
+                collapsed && "hidden"
+              )}
+            >
             <Chat
               viewerName={name}
               hostName={user.username}
