@@ -59,7 +59,7 @@ export const LiveReelsView = () => {
     );
   }
 
-  const liveUsers = data.filter(f => f.following.stream?.isLive);
+  const liveUsers = data.filter(f => f.following.stream?.isLive === true);
 
   if (!liveUsers.length) {
     console.log("📭 [Live] No users live right now.");
