@@ -36,7 +36,7 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
   }
 
   return (
-    <div className="relative w-full z-10 bg-black aspect-video md:rounded-xl md:overflow-hidden md:shadow-lg">
+    <div className="relative w-full z-0 bg-black aspect-video md:rounded-xl md:overflow-hidden md:shadow-lg">
       {/* Mobile back button */}
       <button
         onClick={() => (window.location.href = "/")}
