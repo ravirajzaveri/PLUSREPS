@@ -31,15 +31,11 @@ export const ChatForm = ({
   buttonClass = "",
 }: ChatFormProps) => {
   const [isDelayBlocked, setIsDelayBlocked] = useState(false);
+  const blocked = isHidden || isDelayBlocked || (isFollowersOnly && !isFollowing);
 
-  const isFollowersOnlyAndNotFollowing = isFollowersOnly && !isFollowing;
-  const isDisabled =
-    isHidden || isDelayBlocked || isFollowersOnlyAndNotFollowing;
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handle = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!value || isDisabled) return;
-
+    if (!value || blocked) return;
     if (isDelayed && !isDelayBlocked) {
       setIsDelayBlocked(true);
       setTimeout(() => {
@@ -54,23 +50,14 @@ export const ChatForm = ({
   if (isHidden) return null;
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={cn("flex w-full items-center gap-2", isDisabled && "opacity-60")}
-    >
-      <ChatInfo
-        isDelayed={isDelayed}
-        isFollowersOnly={isFollowersOnly}
-      />
+    <form onSubmit={handle} className={cn("flex w-full items-center gap-2", blocked && "opacity-60")}>
+      <ChatInfo isDelayed={isDelayed} isFollowersOnly={isFollowersOnly} />
       <Input
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        disabled={isDisabled}
+        disabled={blocked}
         placeholder="Send a message..."
-        className={cn(
-          "text-base lg:text-sm flex-1 px-3 py-2 rounded-md",
-          inputClass
-        )}
+        className={cn("text-base lg:text-sm flex-1 px-3 py-2 rounded-md", inputClass)}
         inputMode="text"
         autoComplete="off"
       />
@@ -79,7 +66,7 @@ export const ChatForm = ({
         variant="primary"
         size="sm"
         className={cn("rounded-md", buttonClass)}
-        disabled={isDisabled}
+        disabled={blocked}
       >
         Send
       </Button>
@@ -88,7 +75,7 @@ export const ChatForm = ({
 };
 
 export const ChatFormSkeleton = () => (
-  <div className="flex items-center gap-2 p-3">
+  <div className="flex-shrink-0 flex items-center gap-2 p-3">
     <Skeleton className="flex-1 h-10" />
     <Skeleton className="h-10 w-16" />
   </div>
