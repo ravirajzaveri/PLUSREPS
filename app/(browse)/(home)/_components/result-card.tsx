@@ -28,7 +28,6 @@ export const ResultCard = ({ data }: ResultCardProps) => {
           fallback={data.user.imageUrl}
           isLive={data.isLive}
           username={data.user.username}
-          className="aspect-video rounded-md overflow-hidden"
         />
         <div className="flex gap-x-2 sm:gap-x-3 items-center">
           <UserAvatar
