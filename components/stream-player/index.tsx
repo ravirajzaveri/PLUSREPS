@@ -63,7 +63,7 @@ export const StreamPlayer = ({
       <LiveKitRoom
         token={token}
         serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_WS_URL!}
-        className="flex flex-col h-screen w-full"
+        className="relative flex h-screen w-full"
       >
         {/* ─── Mobile ─── */}
         <div className="lg:hidden flex flex-col flex-1 overflow-hidden">
@@ -94,7 +94,7 @@ export const StreamPlayer = ({
         </div>
 
         {/* ─── Desktop ─── */}
-        <div className="hidden lg:flex flex-1 overflow-hidden">
+        <div className="hidden lg:flex flex-1 overflow-hidden pr-[320px]">
           {/* Left: Video + Info */}
           <div className="flex flex-col flex-1 overflow-hidden">
             <div className="flex-shrink-0">
@@ -126,14 +126,11 @@ export const StreamPlayer = ({
               />
             </div>
           </div>
+        </div>
 
-          {/* Right: Chat */}
-            <div
-              className={cn(
-                "w-full max-w-xs border-l bg-background flex flex-col h-full overflow-hidden",
-                collapsed && "hidden"
-              )}
-            >
+        {/* Right: Fixed Chat */}
+        {!collapsed && (
+          <div className="hidden lg:flex fixed right-0 top-0 h-screen w-[320px] border-l bg-background z-40 flex-col overflow-hidden">
             <Chat
               viewerName={name}
               hostName={user.username}
@@ -144,22 +141,22 @@ export const StreamPlayer = ({
               isChatFollowersOnly={stream.isChatFollowersOnly}
             />
           </div>
-        </div>
+        )}
       </LiveKitRoom>
     </>
   );
 };
 
 export const StreamPlayerSkeleton = () => (
-  <div className="grid grid-cols-1 lg:grid-cols-3 h-full">
-    <div className="col-span-2 space-y-4 overflow-y-auto p-4">
-      <VideoSkeleton />
-      <HeaderSkeleton />
+  <div className="relative h-screen">
+    <div className="grid grid-cols-1 lg:grid-cols-3 h-full pr-[320px]">
+      <div className="col-span-2 space-y-4 overflow-y-auto p-4">
+        <VideoSkeleton />
+        <HeaderSkeleton />
+      </div>
     </div>
-    <div className="col-span-1 bg-background">
+    <div className="hidden lg:block fixed right-0 top-0 h-screen w-[320px] bg-background z-40">
       <ChatSkeleton />
     </div>
   </div>
 );
-
-
