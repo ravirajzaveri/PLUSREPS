@@ -48,11 +48,14 @@ export const LiveReelsView = () => {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
-        {[...Array(6)].map((_, i) => (
-          <ResultCardSkeleton key={i} />
-        ))}
+      <div className="px-4 sm:px-6 md:px-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
+          {[...Array(6)].map((_, i) => (
+            <ResultCardSkeleton key={i} />
+          ))}
+        </div>
       </div>
+
     );
   }
 
@@ -66,19 +69,22 @@ export const LiveReelsView = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
-      {liveUsers.map((follow) => (
-        <ResultCard
-          key={follow.following.id}
-          data={{
-            user: follow.following,
-            isLive: true,
-            title: follow.following.stream?.title || "Untitled Stream",
-            thumbnail: follow.following.stream?.thumbnail ?? null,
-          }}
-        />
-      ))}
+    <div className="px-4 sm:px-6 md:px-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
+        {liveUsers.map((follow) => (
+          <ResultCard
+            key={follow.following.id}
+            data={{
+              user: follow.following,
+              isLive: true,
+              title: follow.following.stream?.title || "Untitled Stream",
+              thumbnail: follow.following.stream?.thumbnail ?? null,
+            }}
+          />
+        ))}
+      </div>
     </div>
+
   );
 };
 
