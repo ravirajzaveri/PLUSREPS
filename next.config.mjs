@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["utfs.io"],
+    domains: ["utfs.io","ufs.sh", "vqu3gque1q.ufs.sh"],
   },
   webpack: (config) => {
     config.module.rules.push({
