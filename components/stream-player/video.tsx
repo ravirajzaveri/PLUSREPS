@@ -54,3 +54,4 @@ export const VideoSkeleton = () => (
     <Skeleton className="h-full w-full rounded-none" />
   </div>
 );
+
