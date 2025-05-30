@@ -47,9 +47,7 @@ export const Chat = ({
   const { chatMessages: messages, send } = useChat();
 
   useEffect(() => {
-    if (matches) {
-      onExpand(); // auto-expand sidebar on mobile
-    }
+    if (matches) onExpand();
   }, [matches, onExpand]);
 
   const reversedMessages = useMemo(() => {
@@ -62,9 +60,7 @@ export const Chat = ({
     setValue("");
   };
 
-  const onChange = (value: string) => {
-    setValue(value);
-  };
+  const onChange = (value: string) => setValue(value);
 
   return (
     <div className="flex flex-col h-full bg-background">
@@ -72,13 +68,13 @@ export const Chat = ({
 
       {variant === ChatVariant.CHAT && (
         <div className="flex flex-col h-full overflow-hidden">
-          {/* Scrollable chat list */}
-          <div className="flex-1 overflow-y-auto px-2 pt-2 pb-4">
+          {/* Scrollable chat messages */}
+          <div className="flex-1 overflow-y-auto px-2 pt-2">
             <ChatList messages={reversedMessages} isHidden={isHidden} />
           </div>
 
-          {/* Sticky chat input */}
-          <div className="border-t bg-background px-3 py-2">
+          {/* Pinned chat input */}
+          <div className="sticky bottom-0 z-10 bg-background border-t px-3 py-2">
             <ChatForm
               onSubmit={onSubmit}
               value={value}
@@ -103,17 +99,16 @@ export const Chat = ({
   );
 };
 
-export const ChatSkeleton = () => {
-  return (
-    <div className="flex flex-col h-full border-l border-b bg-background">
-      <ChatHeaderSkeleton />
-      <div className="flex-1 overflow-y-auto">
-        <ChatListSkeleton />
-      </div>
-      <div className="border-t px-3 py-2">
-        <ChatFormSkeleton />
-      </div>
+export const ChatSkeleton = () => (
+  <div className="flex flex-col h-full border-l border-b bg-background">
+    <ChatHeaderSkeleton />
+    <div className="flex-1 overflow-y-auto">
+      <ChatListSkeleton />
     </div>
-  );
-};
+    <div className="border-t px-3 py-2">
+      <ChatFormSkeleton />
+    </div>
+  </div>
+);
+
 
