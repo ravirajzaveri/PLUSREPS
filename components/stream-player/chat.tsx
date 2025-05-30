@@ -36,7 +36,7 @@ export const Chat = ({
   isChatFollowersOnly,
 }: ChatProps) => {
   const matches = useMediaQuery("(max-width: 1024px)");
-  const { variant, onExpand } = useChatSidebar((state) => state);
+  const { variant, onExpand } = useChatSidebar((s) => s);
   const connectionState = useConnectionState();
   const participant = useRemoteParticipant(hostIdentity);
 
@@ -50,8 +50,8 @@ export const Chat = ({
     if (matches) onExpand();
   }, [matches, onExpand]);
 
-  const reversedMessages = useMemo(
-    () => messages.sort((a, b) => b.timestamp - a.timestamp),
+  const reversed = useMemo(
+    () => [...messages].sort((a, b) => b.timestamp - a.timestamp),
     [messages]
   );
 
@@ -60,8 +60,7 @@ export const Chat = ({
     send(value);
     setValue("");
   };
-
-  const onChange = (val: string) => setValue(val);
+  const onChange = (v: string) => setValue(v);
 
   return (
     <div className="flex flex-col h-full bg-background">
@@ -69,12 +68,11 @@ export const Chat = ({
 
       {variant === ChatVariant.CHAT && (
         <div className="flex flex-col h-full">
-          {/* Scrollable list with min-h-0 so flex-1 shrinks properly */}
+          {/* messages */}
           <div className="flex-1 min-h-0 overflow-y-auto px-2 pt-2">
-            <ChatList messages={reversedMessages} isHidden={isHidden} />
+            <ChatList messages={reversed} isHidden={isHidden} />
           </div>
-
-          {/* Non-scrolling bottom input */}
+          {/* input */}
           <div className="flex-shrink-0 border-t bg-background px-3 py-2">
             <ChatForm
               onSubmit={onSubmit}
