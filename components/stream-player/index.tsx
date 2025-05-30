@@ -1,16 +1,19 @@
 "use client";
 
-import { Stream, User } from "@prisma/client";
 import { LiveKitRoom } from "@livekit/components-react";
 import { cn } from "@/lib/utils";
 import { useChatSidebar } from "@/store/use-chat-sidebar";
 import { useViewerToken } from "@/hooks/use-viewer-token";
+import { Video } from "./video";
+import { VideoSkeleton } from "./video";
+import { Header } from "./header";
+import { HeaderSkeleton } from "./header";
+import { Chat } from "./chat";
+import { ChatSkeleton } from "./chat";
 import { InfoCard } from "./info-card";
 import { AboutCard } from "./about-card";
 import { ChatToggle } from "./chat-toggle";
-import { Chat, ChatSkeleton } from "./chat";
-import { Video, VideoSkeleton } from "./video";
-import { Header, HeaderSkeleton } from "./header";
+
 type CustomStream = {
   id: string;
   isChatEnabled: boolean;
@@ -29,6 +32,7 @@ type CustomUser = {
   imageUrl: string;
   _count: { followedBy: number };
 };
+
 interface StreamPlayerProps {
   user: CustomUser;
   stream: CustomStream;
@@ -55,7 +59,7 @@ export const StreamPlayer = ({
         </div>
       )}
 
-      {/* full-height flex container */}
+      {/* full-screen flex container */}
       <LiveKitRoom
         token={token}
         serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_WS_URL!}
@@ -63,11 +67,9 @@ export const StreamPlayer = ({
       >
         {/* ─── Mobile ─── */}
         <div className="lg:hidden flex flex-col flex-1 overflow-hidden">
-          {/* video */}
           <div className="flex-shrink-0">
             <Video hostName={user.username} hostIdentity={user.id} />
           </div>
-          {/* header */}
           <div className="flex-shrink-0 px-3 py-2">
             <Header
               hostName={user.username}
@@ -78,7 +80,6 @@ export const StreamPlayer = ({
               name={stream.title}
             />
           </div>
-          {/* chat */}
           <div className="flex-1 overflow-hidden flex flex-col">
             <Chat
               viewerName={name}
@@ -94,13 +95,11 @@ export const StreamPlayer = ({
 
         {/* ─── Desktop ─── */}
         <div className="hidden lg:flex flex-1 overflow-hidden">
-          {/* Left column: video + info */}
+          {/* Left: Video + Info */}
           <div className="flex flex-col flex-1 overflow-hidden">
-            {/* video */}
             <div className="flex-shrink-0">
               <Video hostName={user.username} hostIdentity={user.id} />
             </div>
-            {/* header */}
             <div className="flex-shrink-0">
               <Header
                 hostName={user.username}
@@ -111,7 +110,6 @@ export const StreamPlayer = ({
                 name={stream.title}
               />
             </div>
-            {/* scrollable info */}
             <div className="flex-1 overflow-y-auto px-4 py-2 space-y-4">
               <InfoCard
                 hostIdentity={user.id}
@@ -129,7 +127,7 @@ export const StreamPlayer = ({
             </div>
           </div>
 
-          {/* Right column: chat */}
+          {/* Right: Chat */}
           <div
             className={cn(
               "w-full max-w-xs border-l bg-background flex flex-col",
@@ -163,4 +161,5 @@ export const StreamPlayerSkeleton = () => (
     </div>
   </div>
 );
+
 
