@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-
 import { ChatInfo } from "./chat-info";
 
 interface ChatFormProps {
@@ -17,6 +15,8 @@ interface ChatFormProps {
   isFollowersOnly: boolean;
   isFollowing: boolean;
   isDelayed: boolean;
+  inputClass?: string;
+  buttonClass?: string;
 }
 
 export const ChatForm = ({
@@ -27,17 +27,16 @@ export const ChatForm = ({
   isFollowersOnly,
   isFollowing,
   isDelayed,
+  inputClass = "",
+  buttonClass = "",
 }: ChatFormProps) => {
   const [isDelayBlocked, setIsDelayBlocked] = useState(false);
 
   const isFollowersOnlyAndNotFollowing = isFollowersOnly && !isFollowing;
-  const isDisabled =
-    isHidden || isDelayBlocked || isFollowersOnlyAndNotFollowing;
+  const isDisabled = isHidden || isDelayBlocked || isFollowersOnlyAndNotFollowing;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    e.stopPropagation();
-
     if (!value || isDisabled) return;
 
     if (isDelayed && !isDelayBlocked) {
@@ -51,45 +50,39 @@ export const ChatForm = ({
     }
   };
 
-  if (isHidden) {
-    return null;
-  }
+  if (isHidden) return null;
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col items-center gap-y-4 p-3"
-    >
-      <div className="w-full">
-        <ChatInfo isDelayed={isDelayed} isFollowersOnly={isFollowersOnly} />
-        <Input
-          onChange={(e) => onChange(e.target.value)}
-          value={value}
-          disabled={isDisabled}
-          placeholder="Send a message"
-          className={cn(
-            "border-white/10 text-base lg:text-sm", // 👈 ensures 16px minimum font,
-            (isFollowersOnly || isDelayed) && "rounded-t-none border-t-0"
-          )}
-        />
-      </div>
-      <div className="ml-auto">
-        <Button type="submit" variant="primary" size="sm" disabled={isDisabled}>
-          Chat
-        </Button>
-      </div>
+    <form onSubmit={handleSubmit} className="flex w-full items-center gap-2">
+      <ChatInfo isDelayed={isDelayed} isFollowersOnly={isFollowersOnly} />
+      <Input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        disabled={isDisabled}
+        placeholder="Send a message..."
+        className={cn(
+          "text-base lg:text-sm flex-1 px-3 py-2 rounded-md",
+          inputClass
+        )}
+        inputMode="text"
+        autoComplete="off"
+      />
+      <Button
+        type="submit"
+        variant="primary"
+        size="sm"
+        className={cn("rounded-md", buttonClass)}
+        disabled={isDisabled}
+      >
+        Chat
+      </Button>
     </form>
   );
 };
 
-export const ChatFormSkeleton = () => {
-  return (
-    <div className="flex flex-col items-center gap-y-4 p-3">
-      <Skeleton className="w-full h-10" />
-      <div className="flex items-center gap-x-2 ml-auto">
-        <Skeleton className="h-7 w-7" />
-        <Skeleton className="h-7 w-12" />
-      </div>
-    </div>
-  );
-};
+export const ChatFormSkeleton = () => (
+  <div className="flex items-center gap-2 p-3">
+    <Skeleton className="flex-1 h-10" />
+    <Skeleton className="h-10 w-16" />
+  </div>
+);
