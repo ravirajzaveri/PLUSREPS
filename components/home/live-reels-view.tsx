@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import { useEffect, useState, useRef } from "react";
 import { Follow, User } from "@prisma/client";
@@ -81,28 +81,46 @@ const ReelItem: React.FC<ReelItemProps> = ({ stream }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { ref, inView } = useInView({ threshold: 0.8 });
 
-  // Initialize HLS.js or native playback
+  // Initialize HLS.js or native playback and auto-play on manifest parsed.
   useEffect(() => {
     const video = videoRef.current;
     const url = stream.following.stream?.playbackUrl;
+    let hls: Hls | null = null;
+
     if (!video || !url) return;
+    console.log("🔗 Setting up HLS for", url);
 
     if (Hls.isSupported()) {
-      const hls = new Hls();
+      hls = new Hls();
       hls.loadSource(url);
       hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        console.log("📜 Manifest parsed, ready to play");
+        if (inView) video.play().catch(() => {});
+      });
     } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
       video.src = url;
+      video.addEventListener('loadedmetadata', () => {
+        if (inView) video.play().catch(() => {});
+      });
     }
-  }, [stream.following.stream?.playbackUrl]);
 
-  // Auto play/pause based on visibility
+    return () => {
+      if (hls) {
+        hls.destroy();
+      }
+    };
+  }, [stream.following.stream?.playbackUrl, inView]);
+
+  // Auto play/pause when inView changes
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     if (inView) {
+      console.log("▶️ In view, playing video");
       video.play().catch(() => {});
     } else {
+      console.log("⏸️ Out of view, pausing video");
       video.pause();
     }
   }, [inView]);
@@ -112,21 +130,23 @@ const ReelItem: React.FC<ReelItemProps> = ({ stream }) => {
       ref={ref}
       className="snap-start h-screen w-full bg-black flex items-center justify-center relative"
     >
-      <video
-        ref={videoRef}
-        className="object-contain h-full w-full"
-        muted
-        playsInline
-        loop
-      />
-      <div className="absolute bottom-4 left-4 text-white">
+      <div className="w-full h-full flex items-center justify-center">
+        <video
+          ref={videoRef}
+          className="object-contain w-full h-full max-w-full md:max-w-2xl md:h-[80vh] mx-auto"
+          muted
+          playsInline
+          loop
+        />
+      </div>
+      <div className="absolute bottom-4 left-4 text-white max-w-full md:max-w-2xl">
         <p className="font-semibold">@{stream.following.username}</p>
         {stream.following.stream?.title && (
-          <p className="text-sm">{stream.following.stream.title}</p>
+          <p className="text-sm truncate md:truncate-none">
+            {stream.following.stream.title}
+          </p>
         )}
       </div>
     </div>
   );
 };
-
-
