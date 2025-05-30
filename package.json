@@ -46,6 +46,8 @@
     "tailwindcss-animate": "^1.0.7",
     "uploadthing": "^6.4.0",
     "usehooks-ts": "^2.13.0",
+    "hls.js": "^1.6.3",
+    "react-intersection-observer": "^9.16.0",
     "zustand": "^4.5.0"
   },
   "devDependencies": {
