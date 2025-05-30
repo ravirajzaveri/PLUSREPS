@@ -7,7 +7,7 @@ Welcome to the Fullstack Twitch Clone repository! This project utilizes Next.js 
 ## Key Features##
 
 ### 📡 Streaming using RTMP / WHIP protocols
-
+ 
 - Utilize industry-standard RTMP (Real-Time Messaging Protocol) and WHIP (WebRTC HTTP Ingest Protocol) protocols for streaming live video content. These protocols ensure seamless transmission of video data from the source (e.g., OBS) to the streaming server, providing a reliable and efficient streaming experience.
 
 ### 🌐 Generating ingress
