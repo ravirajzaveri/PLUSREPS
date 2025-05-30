@@ -41,7 +41,6 @@ export const Chat = ({
   const participant = useRemoteParticipant(hostIdentity);
 
   const isOnline = participant && connectionState === ConnectionState.Connected;
-
   const isHidden = !isChatEnabled || !isOnline;
 
   const [value, setValue] = useState("");
@@ -49,7 +48,7 @@ export const Chat = ({
 
   useEffect(() => {
     if (matches) {
-      onExpand();
+      onExpand(); // auto-expand sidebar on mobile
     }
   }, [matches, onExpand]);
 
@@ -59,7 +58,6 @@ export const Chat = ({
 
   const onSubmit = () => {
     if (!send) return;
-
     send(value);
     setValue("");
   };
@@ -69,30 +67,31 @@ export const Chat = ({
   };
 
   return (
-    <div className="flex flex-col bg-background pt-0 h-full">
+    <div className="flex flex-col h-full bg-background">
       <ChatHeader />
+
       {variant === ChatVariant.CHAT && (
-    <div className="flex flex-col flex-1 overflow-hidden">
-      <div className="flex-1 overflow-y-auto px-2 pt-2">
-        <ChatList messages={reversedMessages} isHidden={isHidden} />
-      </div>
-        <div className="border-t bg-background px-3 py-2 flex items-center gap-2">
-        <ChatForm
-          inputClass="flex-1 text-base px-3 py-2"
-          buttonClass="px-4 py-2"
-          onSubmit={onSubmit}
-          value={value}
-          onChange={onChange}
-          isHidden={isHidden}
-          isFollowersOnly={isChatFollowersOnly}
-          isDelayed={isChatDelayed}
-          isFollowing={isFollowing}
-        />
-      </div>
-    </div>
+        <div className="flex flex-col h-full overflow-hidden">
+          {/* Scrollable chat list */}
+          <div className="flex-1 overflow-y-auto px-2 pt-2 pb-4">
+            <ChatList messages={reversedMessages} isHidden={isHidden} />
+          </div>
 
-
+          {/* Sticky chat input */}
+          <div className="border-t bg-background px-3 py-2">
+            <ChatForm
+              onSubmit={onSubmit}
+              value={value}
+              onChange={onChange}
+              isHidden={isHidden}
+              isFollowersOnly={isChatFollowersOnly}
+              isDelayed={isChatDelayed}
+              isFollowing={isFollowing}
+            />
+          </div>
+        </div>
       )}
+
       {variant === ChatVariant.COMMUNITY && (
         <ChatCommunity
           viewerName={viewerName}
@@ -102,15 +101,19 @@ export const Chat = ({
       )}
     </div>
   );
-
 };
 
 export const ChatSkeleton = () => {
   return (
-    <div className="flex flex-col border-l border-b pt-0 h-[calc(100vh-80px)] border-2">
+    <div className="flex flex-col h-full border-l border-b bg-background">
       <ChatHeaderSkeleton />
-      <ChatListSkeleton />
-      <ChatFormSkeleton />
+      <div className="flex-1 overflow-y-auto">
+        <ChatListSkeleton />
+      </div>
+      <div className="border-t px-3 py-2">
+        <ChatFormSkeleton />
+      </div>
     </div>
   );
 };
+
