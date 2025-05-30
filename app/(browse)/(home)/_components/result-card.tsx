@@ -17,13 +17,18 @@ interface ResultCardProps {
 
 export const ResultCard = ({ data }: ResultCardProps) => {
   return (
-    <Link href={`/${data.user.username}`}> 
-      <div className="h-full w-full space-y-2 sm:space-y-4 p-2 rounded-xl bg-muted hover:bg-accent transition border shadow-sm">
+    <Link
+      href={`/${data.user.username}`}
+      aria-label={`View ${data.user.username}'s stream`}
+      className="block h-full w-full"
+    >
+      <div className="space-y-2 sm:space-y-4 p-2 rounded-xl bg-muted hover:bg-accent transition border shadow-sm">
         <Thumbnail
           src={data.thumbnail}
           fallback={data.user.imageUrl}
           isLive={data.isLive}
           username={data.user.username}
+          className="aspect-video rounded-md overflow-hidden"
         />
         <div className="flex gap-x-2 sm:gap-x-3 items-center">
           <UserAvatar
@@ -44,6 +49,7 @@ export const ResultCard = ({ data }: ResultCardProps) => {
     </Link>
   );
 };
+
 
 export const ResultCardSkeleton = () => {
   return (
