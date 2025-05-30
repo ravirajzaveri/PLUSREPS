@@ -1,3 +1,4 @@
+// components/stream-player/chat-header.tsx
 "use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
@@ -6,12 +7,17 @@ import { VariantToggle } from "./variant-toggle";
 
 export const ChatHeader = () => {
   return (
-    <div className="relative p-3 border-b bg-background z-10 sticky top-0">
-      <div className="absolute left-2 top-2 hidden lg:block z-10">
+    <div className="sticky top-0 z-10 bg-background border-b p-3">
+      {/* Toggle button on desktop */}
+      <div className="absolute left-2 top-2 hidden lg:block z-20">
         <ChatToggle />
       </div>
-      <p className="font-semibold text-primary text-center">Stream Chat</p>
-      <div className="absolute right-2 top-2 z-10">
+
+      {/* Title centered */}
+      <p className="text-center font-semibold">Stream Chat</p>
+
+      {/* View toggle (chat/community) */}
+      <div className="absolute right-2 top-2 z-20">
         <VariantToggle />
       </div>
     </div>
@@ -20,9 +26,9 @@ export const ChatHeader = () => {
 
 export const ChatHeaderSkeleton = () => {
   return (
-    <div className="relative p-3 border-b hidden md:block sticky top-0 bg-background z-10">
-      <Skeleton className="absolute h-6 w-6 left-3 top-3" />
-      <Skeleton className="w-28 h-6 mx-auto" />
+    <div className="sticky top-0 z-10 bg-background border-b p-3 hidden md:block">
+      <Skeleton className="absolute left-3 top-3 h-6 w-6" />
+      <Skeleton className="mx-auto h-6 w-28" />
     </div>
   );
 };
