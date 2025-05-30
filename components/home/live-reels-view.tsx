@@ -16,7 +16,7 @@ interface LiveProps {
   })[];
 }
 
-export const LiveView = () => {
+export const LiveReelsView = () => {
   const [data, setData] = useState<LiveProps["data"]>([]);
   const [loading, setLoading] = useState(true);
 
