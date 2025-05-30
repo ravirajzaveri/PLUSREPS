@@ -72,7 +72,7 @@ export const LiveReelsView = () => {
   );
 };
 
-// Single reel item: handles auto-play/pause when in view
+// Single reel item: handles auto-play/pause when in view, with size constraints
 interface ReelItemProps {
   stream: LiveStream;
 }
@@ -81,7 +81,7 @@ const ReelItem: React.FC<ReelItemProps> = ({ stream }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { ref, inView } = useInView({ threshold: 0.8 });
 
-  // Initialize HLS.js or native playback and auto-play on manifest parsed.
+  // Setup HLS or native playback, handle errors, and play on manifest or metadata
   useEffect(() => {
     const video = videoRef.current;
     const url = stream.following.stream?.playbackUrl;
@@ -96,15 +96,22 @@ const ReelItem: React.FC<ReelItemProps> = ({ stream }) => {
       hls.attachMedia(video);
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         console.log("📜 Manifest parsed, ready to play");
-        if (inView) video.play().catch(() => {});
+        video.load();
+        if (inView) video.play().catch(err => console.error("Play error:", err));
+      });
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        console.error("HLS error:", event, data);
       });
     } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
       video.src = url;
       video.addEventListener('loadedmetadata', () => {
-        if (inView) video.play().catch(() => {});
+        console.log("📜 Metadata loaded, ready to play");
+        video.load();
+        if (inView) video.play().catch(err => console.error("Play error:", err));
       });
     }
 
+    // Cleanup HLS instance on unmount
     return () => {
       if (hls) {
         hls.destroy();
@@ -112,13 +119,13 @@ const ReelItem: React.FC<ReelItemProps> = ({ stream }) => {
     };
   }, [stream.following.stream?.playbackUrl, inView]);
 
-  // Auto play/pause when inView changes
+  // Auto play/pause when visibility changes
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     if (inView) {
       console.log("▶️ In view, playing video");
-      video.play().catch(() => {});
+      video.play().catch(err => console.error("Play error:", err));
     } else {
       console.log("⏸️ Out of view, pausing video");
       video.pause();
@@ -128,15 +135,16 @@ const ReelItem: React.FC<ReelItemProps> = ({ stream }) => {
   return (
     <div
       ref={ref}
-      className="snap-start h-screen w-full bg-black flex items-center justify-center relative"
+      className="snap-start w-full bg-black flex items-center justify-center relative h-screen md:h-[80vh]"
     >
       <div className="w-full h-full flex items-center justify-center">
         <video
           ref={videoRef}
-          className="object-contain w-full h-full max-w-full md:max-w-2xl md:h-[80vh] mx-auto"
+          className="object-contain w-full h-full max-w-full md:max-w-2xl"
           muted
           playsInline
           loop
+          onError={e => console.error('Video element error', e)}
         />
       </div>
       <div className="absolute bottom-4 left-4 text-white max-w-full md:max-w-2xl">
@@ -150,3 +158,4 @@ const ReelItem: React.FC<ReelItemProps> = ({ stream }) => {
     </div>
   );
 };
+
