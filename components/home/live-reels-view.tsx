@@ -85,6 +85,9 @@ const ReelItem: React.FC<ReelItemProps> = ({ stream }) => {
   useEffect(() => {
     const video = videoRef.current;
     const url = stream.following.stream?.playbackUrl;
+
+    console.log("🔗 Playback URL", stream.following.stream?.playbackUrl);
+
     let hls: Hls | null = null;
 
     if (!video || !url) return;
