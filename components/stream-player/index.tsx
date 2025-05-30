@@ -11,10 +11,24 @@ import { ChatToggle } from "./chat-toggle";
 import { Chat, ChatSkeleton } from "./chat";
 import { Video, VideoSkeleton } from "./video";
 import { Header, HeaderSkeleton } from "./header";
+type CustomStream = {
+  id: string;
+  isChatEnabled: boolean;
+  isChatDelayed: boolean;
+  isChatFollowersOnly: boolean;
+  isLive: boolean;
+  thumbnail: string | null;
+  title: string;
+};
 
-type CustomStream = { /* … */ };
-type CustomUser   = { /* … */ };
-
+type CustomUser = {
+  id: string;
+  username: string;
+  bio: string | null;
+  stream: CustomStream | null;
+  imageUrl: string;
+  _count: { followedBy: number };
+};
 interface StreamPlayerProps {
   user: CustomUser;
   stream: CustomStream;
