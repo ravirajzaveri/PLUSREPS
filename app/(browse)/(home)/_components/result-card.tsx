@@ -17,16 +17,15 @@ interface ResultCardProps {
 
 export const ResultCard = ({ data }: ResultCardProps) => {
   return (
-    <Link href={`/${data.user.username}`}>
-        <div className="h-full w-full space-y-2 sm:space-y-4">
-
+    <Link href={`/${data.user.username}`}> 
+      <div className="h-full w-full space-y-2 sm:space-y-4 p-2 rounded-xl bg-muted hover:bg-accent transition border shadow-sm">
         <Thumbnail
           src={data.thumbnail}
           fallback={data.user.imageUrl}
           isLive={data.isLive}
           username={data.user.username}
         />
-        <div className="flex gap-x-2 sm:gap-x-3">
+        <div className="flex gap-x-2 sm:gap-x-3 items-center">
           <UserAvatar
             username={data.user.username}
             imageUrl={data.user.imageUrl}
@@ -36,7 +35,9 @@ export const ResultCard = ({ data }: ResultCardProps) => {
             <p className="truncate font-semibold text-sm sm:text-base leading-tight hover:text-blue-500">
               {data.title}
             </p>
-            <p className="text-muted-foreground">{data.user.username}</p>
+            <p className="text-muted-foreground text-xs sm:text-sm truncate">
+              @{data.user.username}
+            </p>
           </div>
         </div>
       </div>
@@ -46,9 +47,9 @@ export const ResultCard = ({ data }: ResultCardProps) => {
 
 export const ResultCardSkeleton = () => {
   return (
-    <div className="h-full w-full space-y-4">
+    <div className="h-full w-full space-y-4 p-2 rounded-xl border shadow-sm bg-muted">
       <ThumbnailSkeleton />
-      <div className="flex gap-x-3">
+      <div className="flex gap-x-3 items-center">
         <UserAvatarSkeleton />
         <div className="flex flex-col gap-y-1">
           <Skeleton className="h-4 w-32" />
@@ -58,3 +59,4 @@ export const ResultCardSkeleton = () => {
     </div>
   );
 };
+
