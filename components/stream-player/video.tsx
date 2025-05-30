@@ -8,7 +8,6 @@ import {
 } from "@livekit/components-react";
 
 import { Skeleton } from "@/components/ui/skeleton";
-
 import { OfflineVideo } from "./offline-video";
 import { LoadingVideo } from "./loading-video";
 import { LiveVideo } from "./live-video";
@@ -37,11 +36,11 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
   }
 
   return (
-    <div className="relative w-full aspect-video md:rounded-xl md:overflow-hidden md:shadow-lg">
-      {/* Down arrow visible on mobile */}
+    <div className="relative w-full z-10 bg-black aspect-video md:rounded-xl md:overflow-hidden md:shadow-lg">
+      {/* Mobile back button */}
       <button
         onClick={() => (window.location.href = "/")}
-        className="lg:hidden absolute top-4 left-2 z-50 bg-black bg-opacity-50 p-1 rounded-full"
+        className="lg:hidden absolute top-6 left-2 z-50 bg-black/60 p-1 rounded-full backdrop-blur-md"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -58,6 +57,8 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
           />
         </svg>
       </button>
+
+      {/* Main video or placeholder */}
       {content}
     </div>
   );
@@ -65,9 +66,8 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
 
 export const VideoSkeleton = () => {
   return (
-    <div className="aspect-video border-x border-background md:rounded-xl md:shadow-md">
+    <div className="relative aspect-video border-x border-background md:rounded-xl md:shadow-md">
       <Skeleton className="h-full w-full rounded-none" />
     </div>
   );
 };
-
