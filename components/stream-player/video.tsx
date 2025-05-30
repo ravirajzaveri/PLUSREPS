@@ -36,11 +36,11 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
   }
 
   return (
-    <div className="relative w-full z-0 bg-black aspect-video md:rounded-xl md:overflow-hidden md:shadow-lg">
+    <div className="relative w-full bg-black aspect-video z-[1] md:rounded-xl md:overflow-hidden md:shadow-lg">
       {/* Mobile back button */}
       <button
         onClick={() => (window.location.href = "/")}
-        className="lg:hidden absolute top-6 left-2 z-50 bg-black/60 p-1 rounded-full backdrop-blur-md"
+        className="lg:hidden absolute top-6 left-2 z-20 bg-black/60 p-1 rounded-full backdrop-blur-md"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +58,6 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
         </svg>
       </button>
 
-      {/* Main video or placeholder */}
       {content}
     </div>
   );
@@ -66,7 +65,7 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
 
 export const VideoSkeleton = () => {
   return (
-    <div className="relative aspect-video border-x border-background md:rounded-xl md:shadow-md">
+    <div className="relative aspect-video z-[1] border-x border-background md:rounded-xl md:shadow-md">
       <Skeleton className="h-full w-full rounded-none" />
     </div>
   );
