@@ -60,21 +60,19 @@ export const Chat = ({
     send(value);
     setValue("");
   };
-
   const onChange = (v: string) => setValue(v);
 
   return (
-    <div className="flex flex-col h-full bg-background lg:overscroll-auto overscroll-contain">
+    <div className="flex flex-col h-full bg-background">
       <ChatHeader />
 
       {variant === ChatVariant.CHAT && (
-        <div className="flex flex-col flex-1 overflow-hidden min-h-0">
+        <div className="flex flex-col h-full">
           {/* messages */}
-          <div className="flex-1 min-h-0 overflow-y-auto px-2">
+          <div className="flex-1 min-h-0 overflow-y-auto px-2 pt-2">
             <ChatList messages={reversed} isHidden={isHidden} />
           </div>
-
-          {/* input */}
+          {/* input py-2 to py-10*/}
           <div className="flex-shrink-0 border-t bg-background px-3 py-2">
             <ChatForm
               onSubmit={onSubmit}
@@ -111,5 +109,8 @@ export const ChatSkeleton = () => (
     </div>
   </div>
 );
+
+
+
 
 
