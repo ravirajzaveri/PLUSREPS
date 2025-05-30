@@ -68,9 +68,9 @@ export const Chat = ({
       <ChatHeader />
 
       {variant === ChatVariant.CHAT && (
-        <div className="flex flex-col flex-1 overflow-hidden">
+        <div className="flex flex-col flex-1 overflow-hidden min-h-0">
           {/* messages */}
-          <div className="flex-1 min-h-0 overflow-y-auto px-2 pt-2">
+          <div className="flex-1 min-h-0 overflow-y-auto px-2">
             <ChatList messages={reversed} isHidden={isHidden} />
           </div>
 
@@ -111,4 +111,5 @@ export const ChatSkeleton = () => (
     </div>
   </div>
 );
+
 
