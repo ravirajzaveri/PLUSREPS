@@ -74,6 +74,7 @@ model Sponsor {
   updatedAt        DateTime @updatedAt
 
   ads              Ad[]
+  walletTransactions WalletTransaction[] // ✅ FIX
 }
 
 model Ad {
