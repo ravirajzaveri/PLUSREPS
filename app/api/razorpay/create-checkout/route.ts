@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       amount: Math.round(amountINR * 100), // Razorpay uses paise
       currency: "INR",
       receipt: `wallet_recharge_${Date.now()}`,
-      payment_capture: 1,
+      payment_capture: true,
     });
 
     await db.walletTransaction.create({
