@@ -23,18 +23,18 @@ export const AdPlayer = ({ streamId, onComplete }: { streamId: string; onComplet
 
   const handleComplete = async () => {
     if (!ad) return onComplete();
-    try {
-      await fetch("/api/ads/viewed", {
-        method: "POST",
-        body: JSON.stringify({
-          adId: ad.id,
-          streamId,
-          skipped,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
-    } catch (err) {
-      console.error("❌ Failed to log ad view:", err);
+    if (ad.id !== "fallback") {
+    await fetch("/api/ads/viewed", {
+      method: "POST",
+      body: JSON.stringify({
+        adId: ad.id,
+        streamId,
+        skipped,
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+    } else {
+    console.log("🌀 Skipped logging fallback ad");
     }
     onComplete();
   };
