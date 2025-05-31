@@ -39,7 +39,10 @@ export const AdPlayer = ({ streamId, onComplete }: { streamId: string; onComplet
     onComplete();
   };
 
-  if (!ad) return onComplete();
+  if (!ad) {
+    onComplete();
+    return <></>; // or null
+  }
 
   return (
     <div className="w-full h-[200px] bg-black flex flex-col items-center justify-center text-white">
