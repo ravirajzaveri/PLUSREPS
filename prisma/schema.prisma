@@ -120,7 +120,7 @@ model AdView {
 }
 
 model WalletTransaction {
-  id              String   @id @default(uuid())
+  id              String   @id @default(uuid()) @map("_id")
   sponsorId       String
   razorpayOrderId String   @unique
   razorpayPaymentId String?
