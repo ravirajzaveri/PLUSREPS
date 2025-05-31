@@ -30,12 +30,13 @@ export default function RootLayout({
             <Toaster theme="light" position="top-right" />
             {children}
           </ThemeProvider>
+          <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            async
+          ></script>
         </body>
       </html>
     </ClerkProvider>
   );
 }
-<script
-  src="https://checkout.razorpay.com/v1/checkout.js"
-  async
-></script>
+
