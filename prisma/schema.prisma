@@ -33,6 +33,8 @@ model User {
   blocking       Block[]  @relation(name: "Blocking")
   blockedby      Block[]  @relation(name: "BlockedBy")
   stream         Stream?
+  location   String?           // e.g., "IN", "US"
+  interests  String[]          // e.g., ["yoga", "powerlifting"]
 }
 
 model Follow {
@@ -62,6 +64,79 @@ model Block {
   @@index([blockerId])
   @@index([blockedId])
 }
+
+model Sponsor {
+  id               String   @id @default(uuid())
+  name             String
+  email            String   @unique
+  walletBalanceINR Float    @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  ads              Ad[]
+}
+
+model Ad {
+  id                   String   @id @default(uuid())
+  title                String
+  videoUrl             String
+  durationSeconds      Int
+  type                 AdType
+  isSkippable          Boolean
+  cpmINR               Float // INR per 1000 plays
+  dailyBudgetINR       Float
+  totalBudgetINR       Float
+  startDate            DateTime
+  endDate              DateTime
+  active               Boolean  @default(true)
+  categories           String[] // e.g., ["yoga", "bodybuilding"]
+  targetLocations      String[] // ISO codes, e.g., ["IN", "US"]
+  minInterestMatch     Int      @default(0)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  sponsorId            String
+  sponsor              Sponsor @relation(fields: [sponsorId], references: [id])
+
+  views                AdView[]
+}
+
+enum AdType {
+  PRE_ROLL
+  MID_ROLL
+}
+
+model AdView {
+  id        String   @id @default(uuid())
+  adId      String
+  viewerId  String
+  streamId  String
+  viewedAt  DateTime @default(now())
+  skipped   Boolean
+  engaged   Boolean
+
+  ad        Ad       @relation(fields: [adId], references: [id])
+}
+
+model WalletTransaction {
+  id              String   @id @default(uuid())
+  sponsorId       String
+  razorpayOrderId String   @unique
+  razorpayPaymentId String?
+  amountINR       Float
+  status          TransactionStatus @default(PENDING)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  sponsor         Sponsor  @relation(fields: [sponsorId], references: [id])
+}
+
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
 
 model Stream {
   id                  String   @id @default(auto()) @map("_id") @db.ObjectId
