@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const user = await getSelf();
     const { adId, streamId, skipped } = await req.json();
 
-    const ad = await db.ad.findUnique({ where: { id: adId } });
+    const ad = await db.ad.findUnique({ where: { id: adId },  include: { views: true },  });
     if (!ad || !ad.active) {
       console.warn("⚠️ Invalid or inactive ad:", adId);
       return new Response("Invalid ad", { status: 400 });
