@@ -66,7 +66,7 @@ model Block {
 }
 
 model Sponsor {
-  id               String   @id @default(uuid())
+  id               String   @id @default(uuid()) @map("_id")
   name             String
   email            String   @unique
   walletBalanceINR Float    @default(0)
@@ -78,7 +78,7 @@ model Sponsor {
 }
 
 model Ad {
-  id                   String   @id @default(uuid())
+  id                   String   @id @default(uuid()) @map("_id")
   title                String
   videoUrl             String
   durationSeconds      Int
@@ -108,7 +108,7 @@ enum AdType {
 }
 
 model AdView {
-  id        String   @id @default(uuid())
+  id        String   @id @default(uuid()) @map("_id")
   adId      String
   viewerId  String
   streamId  String
