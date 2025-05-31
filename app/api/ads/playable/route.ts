@@ -47,7 +47,18 @@ export async function POST(req: Request) {
     const bestAd = scored.sort((a, b) => b.score - a.score)[0]?.ad;
 
     if (!bestAd) {
-      return NextResponse.json({ ad: null });
+       const fallbackAd = {
+          id: "fallback",
+          title: "PLUSREPS Internal Promo",
+          videoUrl: "https://bunnycdn.example.com/ads/plusreps-promo.mp4",
+          durationSeconds: 10,
+          isSkippable: true,
+          type: "PRE_ROLL",
+          cpmINR: 0,
+        };
+        //⚠️ This must match the AdPlayer shape. You won’t log views or deduct wallet for this.
+        console.log("🪙 Serving fallback internal ad.");
+        return NextResponse.json({ ad: fallbackAd });
     }
 
     console.log("🎯 Selected ad:", bestAd.title);
